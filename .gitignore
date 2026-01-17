@@ -1,0 +1,15 @@
+# Node modules (Too heavy to upload)
+node_modules/
+**/node_modules/
+
+# Environment variables (Sensitive passwords)
+.env
+**/.env
+
+# Build outputs
+dist/
+build/
+
+# Mac/Windows system files
+.DS_Store
+Thumbs.db
