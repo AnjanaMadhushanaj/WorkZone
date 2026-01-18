@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams, u
 import { 
   Search, MapPin, Briefcase, User, Bell, LayoutDashboard, 
   FileText, Settings, CreditCard, ChevronRight, Filter,
-  Home as HomeIcon, LogOut, CheckCircle, TrendingUp, Wallet, Clock
+  Home as HomeIcon, LogOut, CheckCircle, TrendingUp, Wallet, Clock,
+  Facebook, Twitter, Linkedin, Instagram, Mail, Phone
 } from 'lucide-react';
 
 // Global State Management
@@ -207,9 +208,91 @@ const Home = () => {
         </div>
       </div>
       
-      {/* Footer Simple */}
-      <footer className="bg-white border-t border-gray-100 py-12 text-center text-gray-400 text-sm">
-        <p>&copy; 2024 WorkZone. All rights reserved.</p>
+      {/* Professional Black Footer */}
+      <footer className="bg-black text-gray-300 pt-16 pb-8 mt-20">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Footer Content Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            {/* Column 1: Brand */}
+            <div>
+              <h3 className="text-white font-bold text-lg mb-4">WorkZone</h3>
+              <p className="text-gray-400 text-sm mb-4">Turn spare time into income. The smartest platform for students to find part-time opportunities.</p>
+              <div className="flex gap-3">
+                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors text-white">
+                  <Facebook size={18} />
+                </a>
+                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors text-white">
+                  <Twitter size={18} />
+                </a>
+                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors text-white">
+                  <Linkedin size={18} />
+                </a>
+                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors text-white">
+                  <Instagram size={18} />
+                </a>
+              </div>
+            </div>
+
+            {/* Column 2: Quick Links */}
+            <div>
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li><Link to="/" className="hover:text-purple-400 transition-colors">Browse Jobs</Link></li>
+                <li><Link to="/about" className="hover:text-purple-400 transition-colors">About Us</Link></li>
+                <li><Link to="/" className="hover:text-purple-400 transition-colors">How It Works</Link></li>
+                <li><Link to="/" className="hover:text-purple-400 transition-colors">FAQs</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Resources */}
+            <div>
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Resources</h4>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li><Link to="/login" className="hover:text-purple-400 transition-colors">Sign In</Link></li>
+                <li><Link to="/register" className="hover:text-purple-400 transition-colors">Register</Link></li>
+                <li><Link to="/contact" className="hover:text-purple-400 transition-colors">Safety Tips</Link></li>
+                <li><Link to="/" className="hover:text-purple-400 transition-colors">Blog</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 4: Contact & Info */}
+            <div>
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Contact</h4>
+              <ul className="space-y-3 text-sm text-gray-400">
+                <li className="flex items-start gap-2">
+                  <Mail size={16} className="text-purple-400 mt-0.5 flex-shrink-0" />
+                  <a href="mailto:support@workzone.lk" className="hover:text-purple-400 transition-colors">support@workzone.lk</a>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Phone size={16} className="text-purple-400 mt-0.5 flex-shrink-0" />
+                  <a href="tel:+94701234567" className="hover:text-purple-400 transition-colors">+94 (0) 701 234 567</a>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MapPin size={16} className="text-purple-400 mt-0.5 flex-shrink-0" />
+                  <span>Colombo, Sri Lanka</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-gray-800 py-8">
+            {/* Bottom Links */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+              <div className="flex flex-wrap gap-6 text-sm">
+                <Link to="/terms" className="hover:text-purple-400 transition-colors">Terms & Policies</Link>
+                <Link to="/contact" className="hover:text-purple-400 transition-colors">Contact Us</Link>
+                <Link to="/feedback" className="hover:text-purple-400 transition-colors">Feedback</Link>
+                <a href="#" className="hover:text-purple-400 transition-colors">Privacy Policy</a>
+              </div>
+            </div>
+
+            {/* Copyright */}
+            <div className="text-center text-gray-500 text-xs">
+              <p>&copy; 2026 WorkZone. All rights reserved. | Built for Students, by Students</p>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );
