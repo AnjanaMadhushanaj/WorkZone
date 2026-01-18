@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams, u
 import { 
   Search, MapPin, Briefcase, User, Bell, LayoutDashboard, 
   FileText, Settings, CreditCard, ChevronRight, Filter,
-  Home as HomeIcon, LogOut, CheckCircle, TrendingUp, Wallet, Clock
+  Home as HomeIcon, LogOut, CheckCircle, TrendingUp, Wallet, Clock,
+  Facebook, Twitter, Linkedin, Instagram, Mail, Phone
 } from 'lucide-react';
 
 // Global State Management
@@ -15,10 +16,60 @@ const useAppContext = () => useContext(AppContext);
 // For now, we use standard sans-serif with refined Tailwind classes.
 
 const INITIAL_JOBS = [
-  { id: 1, title: 'Graphic Designer - Digital Branding', company: 'Creative Pixel Studios', location: 'Colombo', rate: 'LKR 3,500/hr', amount: 87500, type: 'Freelance', tags: ['Design', 'Branding'], logoColor: 'bg-orange-500', description: 'Create stunning visual designs for local and international marketing campaigns. Work with modern design tools and deliver high-quality branding assets for growing businesses.', postedBy: 'company1' },
-  { id: 2, title: 'UX/UI Designer - Mobile Apps', company: 'TechFlow Asia', location: 'Colombo, Western Province', rate: 'LKR 8,000/hr', amount: 200000, type: 'Full-Time', tags: ['UI/UX', 'Figma', 'Mobile'], logoColor: 'bg-blue-600', description: 'Design user-friendly interfaces for mobile applications targeting the Asian market. Collaborate with development teams to create seamless user experiences.', postedBy: 'company2' },
-  { id: 3, title: 'English Tutor for O/L & A/L Students', company: 'EduLearn Sri Lanka', location: 'Kandy', rate: 'LKR 2,000/hr', amount: 50000, type: 'Part-Time', tags: ['Teaching', 'English', 'Exam Prep'], logoColor: 'bg-green-500', description: 'Teach English language and literature to O/L and A/L students. Help students prepare for national exams with proven teaching methodologies.', postedBy: 'company1' },
-  { id: 4, title: 'Social Media Manager - Sinhala & English', company: 'Local Buzz Marketing', location: 'Galle', rate: 'LKR 3,000/hr', amount: 75000, type: 'Contract', tags: ['Marketing', 'Social Media', 'Content'], logoColor: 'bg-pink-500', description: 'Manage social media accounts for local SMEs and startups. Create engaging content in Sinhala and English, manage community engagement, and track analytics.', postedBy: 'company1' },
+  // Retail & Customer Service Jobs
+  { id: 1, title: 'Cashier - City Center Book Shop', company: 'City Center Book Store', location: 'Colombo 07', rate: 'LKR 1,500/hr', amount: 30000, type: 'Part-Time', tags: ['Retail', 'Customer Service', 'Cash Handling'], logoColor: 'bg-blue-500', description: 'Handle customer transactions at our busy bookshop in City Center. Manage point-of-sale systems, process payments accurately, and provide excellent customer service. Flexible hours perfect for campus students. No experience necessary - full training provided. Benefits include employee discount on books and magazines.', postedBy: 'company1' },
+  
+  { id: 2, title: 'Cashier & Retail Associate - Food City Supermarket', company: 'Food City Supermarket', location: 'Colombo 03', rate: 'LKR 1,200/hr', amount: 24000, type: 'Part-Time', tags: ['Retail', 'Cashier', 'Supermarket'], logoColor: 'bg-green-600', description: 'Work as a cashier and retail assistant at Food City. Responsibilities include operating checkout systems, scanning items, handling payments, and assisting customers with their shopping. Evening and weekend shifts available. Competitive pay with performance bonuses. Employee discounts on groceries and household items.', postedBy: 'company2' },
+
+  // Promotions & Marketing
+  { id: 3, title: 'Leaflet Promotions - MultiCare Pharmaceuticals', company: 'MultiCare Pharmaceuticals', location: 'Colombo 04', rate: 'LKR 1,800/hr', amount: 36000, type: 'Part-Time', tags: ['Marketing', 'Promotions', 'Outreach'], logoColor: 'bg-red-500', description: 'Distribute promotional leaflets for MultiCare Pharmaceuticals across busy commercial areas in Colombo. Engage with potential customers, answer basic questions about health products, and collect feedback. Flexible 4-6 hour shifts. Weather protection and materials provided. Great way to earn while improving communication skills.', postedBy: 'company3' },
+
+  { id: 4, title: 'Brand Ambassador - Mobile Phone Distribution', company: 'Digital Tek Solutions', location: 'Colombo 09', rate: 'LKR 2,000/hr', amount: 40000, type: 'Part-Time', tags: ['Marketing', 'Promotions', 'Sales'], logoColor: 'bg-purple-600', description: 'Promote latest mobile phones and plans from Digital Tek Solutions at malls and commercial hubs. Demonstrate products, engage customers, and achieve daily targets. Commissions based on successful promotions. Flexible weekend schedules. No sales experience needed - comprehensive training provided.', postedBy: 'company4' },
+
+  { id: 5, title: 'Event Promoter - Fashion & Lifestyle', company: 'StyleZone Marketing', location: 'Kandy', rate: 'LKR 2,200/hr', amount: 44000, type: 'Part-Time', tags: ['Marketing', 'Events', 'Promotions'], logoColor: 'bg-pink-500', description: 'Promote fashion and lifestyle brands at shopping malls and commercial events. Hand out samples, explain product features, and engage with customers. Perfect for students interested in marketing. Event-based work with flexible scheduling. Free branded merchandise and performance bonuses.', postedBy: 'company5' },
+
+  // Stock & Inventory Management
+  { id: 6, title: 'Stock Counting & Inventory Helper - Colombo Warehouse', company: 'Global Logistics Sri Lanka', location: 'Colombo 14', rate: 'LKR 1,600/hr', amount: 32000, type: 'Part-Time', tags: ['Warehouse', 'Inventory', 'Organization'], logoColor: 'bg-orange-600', description: 'Assist with stock counting and inventory management at our Colombo warehouse. Responsibilities include counting items, organizing shelves, scanning barcodes, and maintaining records. Physical work in a climate-controlled environment. Flexible evening and weekend shifts. Great for students who prefer hands-on work.', postedBy: 'company6' },
+
+  { id: 7, title: 'Store Stock Assistant - Supermarket Chain', company: 'Smart Shopping Stores', location: 'Galle', rate: 'LKR 1,400/hr', amount: 28000, type: 'Part-Time', tags: ['Retail', 'Stock Management', 'Warehouse'], logoColor: 'bg-cyan-600', description: 'Help stock shelves and manage inventory at Smart Shopping stores. Unpack deliveries, organize products by category, maintain shelf appearance, and handle stock audits. Physical work in a clean, organized environment. Flexible scheduling around your campus timetable. Opportunities for advancement.', postedBy: 'company7' },
+
+  { id: 8, title: 'Vehicle Count & Inventory - Transport Company', company: 'Island Wide Transport Services', location: 'Colombo 02', rate: 'LKR 2,500/hr', amount: 50000, type: 'Part-Time', tags: ['Logistics', 'Inventory', 'Counting'], logoColor: 'bg-yellow-600', description: 'Count and track vehicles in our large fleet for Island Wide Transport Services. Record vehicle locations, maintenance status, and prepare inventory reports. Use company systems and software. Regular 4-hour shifts available. Work in a professional logistics environment. No prior experience necessary.', postedBy: 'company8' },
+
+  // Hotel & Hospitality
+  { id: 9, title: 'Hotel Housekeeping - 4-Star Hotel', company: 'Royal Palm Hotel Colombo', location: 'Colombo 03', rate: 'LKR 1,900/hr', amount: 38000, type: 'Part-Time', tags: ['Hospitality', 'Housekeeping', 'Hotel'], logoColor: 'bg-amber-600', description: 'Join our housekeeping team at Royal Palm Hotel Colombo. Responsibilities include cleaning guest rooms, maintaining common areas, changing linens, and ensuring high cleanliness standards. Professional uniform provided. Flexible shifts including mornings and afternoons. Excellent training and supportive team environment.', postedBy: 'company9' },
+
+  { id: 10, title: 'Hotel Restaurant Attendant - City Center', company: 'Grand Hotel & Restaurant', location: 'Colombo 07', rate: 'LKR 1,700/hr', amount: 34000, type: 'Part-Time', tags: ['Hospitality', 'Food Service', 'Customer Service'], logoColor: 'bg-red-600', description: 'Work as a restaurant attendant at Grand Hotel. Clear tables, serve customers, arrange place settings, and maintain dining area cleanliness. Professional attire provided. Training in customer service standards. Flexible evening and weekend shifts. Interact with diverse clientele and build hospitality experience.', postedBy: 'company10' },
+
+  { id: 11, title: 'Front Desk Reception - Boutique Hotel', company: 'Paradise Bay Hotel', location: 'Negombo', rate: 'LKR 2,100/hr', amount: 42000, type: 'Part-Time', tags: ['Hospitality', 'Reception', 'Customer Service'], logoColor: 'bg-blue-600', description: 'Welcome guests and manage front desk operations at Paradise Bay Hotel. Handle check-ins/check-outs, answer inquiries, maintain guest records, and provide exceptional service. English fluency required. Professional environment with career growth opportunities. Flexible scheduling for students.', postedBy: 'company11' },
+
+  { id: 12, title: 'Kitchen Helper & Food Prep - Restaurant', company: 'Taste of Colombo Restaurant', location: 'Colombo 05', rate: 'LKR 1,350/hr', amount: 27000, type: 'Part-Time', tags: ['Hospitality', 'Food Service', 'Kitchen'], logoColor: 'bg-orange-500', description: 'Assist kitchen staff with food preparation, washing dishes, and maintaining kitchen cleanliness. Learn basic cooking techniques and food safety standards. Supportive, fast-paced environment. Flexible shifts around your studies. Staff meals provided. Great stepping stone to culinary career.', postedBy: 'company12' },
+
+  // Flower & Decoration
+  { id: 13, title: 'Floral Arranger & Decorator - Event Company', company: 'Bloom Designs Event Decor', location: 'Colombo 06', rate: 'LKR 2,300/hr', amount: 46000, type: 'Part-Time', tags: ['Decoration', 'Events', 'Florals', 'Creative'], logoColor: 'bg-pink-600', description: 'Create beautiful floral arrangements and designs for weddings, corporate events, and celebrations. Learn floral design techniques while earning. Arrange flowers, prepare centerpieces, and deliver decorations to event venues. Creative work with flexible scheduling. Perfect for artistic students. No experience needed - full training provided.', postedBy: 'company13' },
+
+  { id: 14, title: 'Event Decorator - Balloons & Props', company: 'Party Perfect Celebrations', location: 'Kandy', rate: 'LKR 2,000/hr', amount: 40000, type: 'Part-Time', tags: ['Decoration', 'Events', 'Setup'], logoColor: 'bg-purple-500', description: 'Decorate event spaces for birthdays, weddings, and corporate functions. Set up balloons, hang decorations, arrange furniture, and create festive atmospheres. Physical work requiring attention to detail. Flexible event-based scheduling. Evening and weekend work. Fun, creative, and rewarding!', postedBy: 'company14' },
+
+  { id: 15, title: 'Wedding & Events Setup - Decoration Team', company: 'Elegant Events Sri Lanka', location: 'Colombo 04', rate: 'LKR 2,400/hr', amount: 48000, type: 'Part-Time', tags: ['Events', 'Decoration', 'Setup'], logoColor: 'bg-rose-600', description: 'Set up and decorate wedding venues, banquet halls, and event spaces for Elegant Events. Install tables, chairs, decorations, lighting, and floral arrangements. Work with professional event teams on various occasions. Physical work with flexible scheduling. Great for students who enjoy creative and dynamic environments.', postedBy: 'company15' },
+
+  // Original Jobs (Kept)
+  { id: 16, title: 'Graphic Designer - Digital Branding', company: 'Creative Pixel Studios', location: 'Colombo', rate: 'LKR 3,500/hr', amount: 87500, type: 'Freelance', tags: ['Design', 'Branding'], logoColor: 'bg-orange-500', description: 'Create stunning visual designs for local and international marketing campaigns. Work with modern design tools and deliver high-quality branding assets for growing businesses.', postedBy: 'company1' },
+  
+  { id: 17, title: 'UX/UI Designer - Mobile Apps', company: 'TechFlow Asia', location: 'Colombo, Western Province', rate: 'LKR 8,000/hr', amount: 200000, type: 'Full-Time', tags: ['UI/UX', 'Figma', 'Mobile'], logoColor: 'bg-blue-600', description: 'Design user-friendly interfaces for mobile applications targeting the Asian market. Collaborate with development teams to create seamless user experiences.', postedBy: 'company2' },
+  
+  { id: 18, title: 'English Tutor for O/L & A/L Students', company: 'EduLearn Sri Lanka', location: 'Kandy', rate: 'LKR 2,000/hr', amount: 50000, type: 'Part-Time', tags: ['Teaching', 'English', 'Exam Prep'], logoColor: 'bg-green-500', description: 'Teach English language and literature to O/L and A/L students. Help students prepare for national exams with proven teaching methodologies.', postedBy: 'company1' },
+  
+  { id: 19, title: 'Social Media Manager - Sinhala & English', company: 'Local Buzz Marketing', location: 'Galle', rate: 'LKR 3,000/hr', amount: 75000, type: 'Contract', tags: ['Marketing', 'Social Media', 'Content'], logoColor: 'bg-pink-500', description: 'Manage social media accounts for local SMEs and startups. Create engaging content in Sinhala and English, manage community engagement, and track analytics.', postedBy: 'company1' },
+
+  // Additional Professional Jobs
+  { id: 20, title: 'Data Entry Specialist', company: 'BPO Solutions Sri Lanka', location: 'Colombo 01', rate: 'LKR 2,800/hr', amount: 56000, type: 'Part-Time', tags: ['Data Entry', 'Administrative', 'Office'], logoColor: 'bg-indigo-600', description: 'Enter and manage data for our BPO operations. Accuracy and attention to detail required. Work in a professional office environment. Flexible shifts available including evenings. No experience necessary with basic typing skills.', postedBy: 'company16' },
+
+  { id: 21, title: 'Call Center Executive - English & Sinhala', company: 'Global Customer Support', location: 'Colombo 05', rate: 'LKR 2,500/hr', amount: 50000, type: 'Part-Time', tags: ['Customer Service', 'Call Center', 'Communication'], logoColor: 'bg-teal-600', description: 'Handle customer service calls for international clients. Fluency in English and Sinhala required. Professional training provided. Work in a team environment with modern communication tools. Flexible shifts with performance incentives.', postedBy: 'company17' },
+
+  { id: 22, title: 'Online Tutor - Mathematics & Science', company: 'Virtual Academy Sri Lanka', location: 'Remote', rate: 'LKR 2,200/hr', amount: 44000, type: 'Freelance', tags: ['Teaching', 'Online', 'Education'], logoColor: 'bg-lime-600', description: 'Teach mathematics and science to students online from anywhere. Create lessons, conduct one-on-one sessions, and track student progress. Flexible scheduling perfect for campus life. Work from home with flexible hours. Competitive compensation.', postedBy: 'company18' },
+
+  { id: 23, title: 'Content Writer - Sinhala & English', company: 'Digital Content Hub', location: 'Colombo 06', rate: 'LKR 3,000/hr', amount: 60000, type: 'Freelance', tags: ['Writing', 'Content', 'Marketing'], logoColor: 'bg-fuchsia-600', description: 'Write engaging content for blogs, websites, and social media in Sinhala and English. Create SEO-optimized articles, product descriptions, and marketing copy. Work from home with flexible deadlines. Perfect for students with writing skills.', postedBy: 'company19' },
+
+  { id: 24, title: 'Delivery Assistant - Food & Packages', company: 'Express Couriers Sri Lanka', location: 'Colombo 09', rate: 'LKR 1,800/hr', amount: 36000, type: 'Part-Time', tags: ['Delivery', 'Logistics', 'Transportation'], logoColor: 'bg-amber-500', description: 'Deliver food orders and courier packages in Colombo area. Use company vehicle or own transportation (with allowance). Meet customers, handle payments, and provide excellent service. Flexible scheduling with incentives for peak hours.', postedBy: 'company20' },
 ];
 
 // Mock Company Credentials
@@ -157,9 +208,91 @@ const Home = () => {
         </div>
       </div>
       
-      {/* Footer Simple */}
-      <footer className="bg-white border-t border-gray-100 py-12 text-center text-gray-400 text-sm">
-        <p>&copy; 2024 WorkZone. All rights reserved.</p>
+      {/* Professional Black Footer */}
+      <footer className="bg-black text-gray-300 pt-16 pb-8 mt-20">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Footer Content Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            {/* Column 1: Brand */}
+            <div>
+              <h3 className="text-white font-bold text-lg mb-4">WorkZone</h3>
+              <p className="text-gray-400 text-sm mb-4">Turn spare time into income. The smartest platform for students to find part-time opportunities.</p>
+              <div className="flex gap-3">
+                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors text-white">
+                  <Facebook size={18} />
+                </a>
+                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors text-white">
+                  <Twitter size={18} />
+                </a>
+                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors text-white">
+                  <Linkedin size={18} />
+                </a>
+                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-purple-600 rounded-full flex items-center justify-center transition-colors text-white">
+                  <Instagram size={18} />
+                </a>
+              </div>
+            </div>
+
+            {/* Column 2: Quick Links */}
+            <div>
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li><Link to="/" className="hover:text-purple-400 transition-colors">Browse Jobs</Link></li>
+                <li><Link to="/about" className="hover:text-purple-400 transition-colors">About Us</Link></li>
+                <li><Link to="/" className="hover:text-purple-400 transition-colors">How It Works</Link></li>
+                <li><Link to="/" className="hover:text-purple-400 transition-colors">FAQs</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Resources */}
+            <div>
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Resources</h4>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li><Link to="/login" className="hover:text-purple-400 transition-colors">Sign In</Link></li>
+                <li><Link to="/register" className="hover:text-purple-400 transition-colors">Register</Link></li>
+                <li><Link to="/contact" className="hover:text-purple-400 transition-colors">Safety Tips</Link></li>
+                <li><Link to="/" className="hover:text-purple-400 transition-colors">Blog</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 4: Contact & Info */}
+            <div>
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Contact</h4>
+              <ul className="space-y-3 text-sm text-gray-400">
+                <li className="flex items-start gap-2">
+                  <Mail size={16} className="text-purple-400 mt-0.5 flex-shrink-0" />
+                  <a href="mailto:support@workzone.lk" className="hover:text-purple-400 transition-colors">support@workzone.lk</a>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Phone size={16} className="text-purple-400 mt-0.5 flex-shrink-0" />
+                  <a href="tel:+94701234567" className="hover:text-purple-400 transition-colors">+94 (0) 701 234 567</a>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MapPin size={16} className="text-purple-400 mt-0.5 flex-shrink-0" />
+                  <span>Colombo, Sri Lanka</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-gray-800 py-8">
+            {/* Bottom Links */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+              <div className="flex flex-wrap gap-6 text-sm">
+                <Link to="/terms" className="hover:text-purple-400 transition-colors">Terms & Policies</Link>
+                <Link to="/contact" className="hover:text-purple-400 transition-colors">Contact Us</Link>
+                <Link to="/feedback" className="hover:text-purple-400 transition-colors">Feedback</Link>
+                <a href="#" className="hover:text-purple-400 transition-colors">Privacy Policy</a>
+              </div>
+            </div>
+
+            {/* Copyright */}
+            <div className="text-center text-gray-500 text-xs">
+              <p>&copy; 2026 WorkZone. All rights reserved. | Built for Students, by Students</p>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );
@@ -1498,7 +1631,9 @@ const UserDashboard = () => {
 // About Us Page
 const AboutUs = () => {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-2xl shadow-sm border p-8 md:p-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About WorkZone</h1>
@@ -1571,6 +1706,7 @@ const AboutUs = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
@@ -1592,7 +1728,9 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Contact Us</h1>
         <p className="text-center text-gray-600 mb-12">We're here to help. Reach out with any questions or concerns.</p>
@@ -1700,6 +1838,7 @@ const ContactUs = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
@@ -1721,7 +1860,9 @@ const FeedbackPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Your Feedback Matters</h1>
         <p className="text-center text-gray-600 mb-12">Help us improve WorkZone by sharing your thoughts and experiences</p>
@@ -1814,6 +1955,7 @@ const FeedbackPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
@@ -1857,7 +1999,9 @@ const TermsAndPolicies = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Terms & Policies</h1>
         <p className="text-center text-gray-600 mb-12">Last updated: January 2026 | Version 1.0</p>
@@ -1897,6 +2041,7 @@ const TermsAndPolicies = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
