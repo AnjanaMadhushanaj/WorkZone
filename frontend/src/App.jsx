@@ -1498,7 +1498,9 @@ const UserDashboard = () => {
 // About Us Page
 const AboutUs = () => {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-2xl shadow-sm border p-8 md:p-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About WorkZone</h1>
@@ -1571,6 +1573,7 @@ const AboutUs = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
@@ -1592,7 +1595,9 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Contact Us</h1>
         <p className="text-center text-gray-600 mb-12">We're here to help. Reach out with any questions or concerns.</p>
@@ -1700,6 +1705,7 @@ const ContactUs = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
@@ -1721,7 +1727,9 @@ const FeedbackPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Your Feedback Matters</h1>
         <p className="text-center text-gray-600 mb-12">Help us improve WorkZone by sharing your thoughts and experiences</p>
@@ -1814,6 +1822,7 @@ const FeedbackPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
@@ -1857,7 +1866,9 @@ const TermsAndPolicies = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Terms & Policies</h1>
         <p className="text-center text-gray-600 mb-12">Last updated: January 2026 | Version 1.0</p>
@@ -1897,6 +1908,7 @@ const TermsAndPolicies = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
