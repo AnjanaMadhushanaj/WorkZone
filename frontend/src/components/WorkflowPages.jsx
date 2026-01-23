@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { CheckCircle, CreditCard, Wallet, Clock } from 'lucide-react';
+import { CheckCircle, CreditCard, Wallet, Clock, Briefcase } from 'lucide-react';
 
 // Participate Page (Receipt View)
 export const ParticipatePage = ({ appState }) => {
@@ -52,7 +52,7 @@ export const ParticipatePage = ({ appState }) => {
           <button
             onClick={handleDone}
             disabled={done}
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
+            className="w-full bg-linear-to-r from-purple-600 to-blue-600 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
           >
             {done ? 'Proceeding...' : 'Mark as Done'}
           </button>
@@ -179,7 +179,7 @@ export const CardDetailsPage = ({ appState }) => {
 
           <button
             onClick={handleRequestMoney}
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
+            className="w-full bg-linear-to-r from-purple-600 to-blue-600 text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all"
           >
             Request Money
           </button>
@@ -335,7 +335,7 @@ export const UserDashboard = ({ appState }) => {
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header with Wallet */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl p-6 text-white shadow-lg">
+          <div className="bg-linear-to-br from-purple-600 to-blue-600 rounded-2xl p-6 text-white shadow-lg">
             <div className="flex items-center gap-3 mb-4">
               <Wallet className="w-8 h-8" />
               <h3 className="text-lg font-bold">My Wallet</h3>
