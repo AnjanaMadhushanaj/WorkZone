@@ -10,17 +10,18 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Basic Route
+app.get('/', (req, res) => {
+    res.send('🚀 WorkZone Backend is Running on Render!');
+});
+
 // Database Connection
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ MongoDB Connected Successfully!'))
+    .then(() => {
+        console.log('✅ MongoDB Connected Successfully!');
+        // Server Start (Listen) - Render එකට මේක අනිවාර්යයි
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        });
+    })
     .catch((err) => console.error('❌ MongoDB Connection Error:', err));
-
-// Basic Route (To check if server is running)
-app.get('/', (req, res) => {
-    res.send('🚀 WorkZone Backend is Running!');
-});
-
-// Start Server
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
