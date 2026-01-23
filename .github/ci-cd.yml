@@ -44,3 +44,15 @@ jobs:
       - name: Test Backend Start
         working-directory: ./backend
         run: timeout 10s node index.js || true
+
+
+  deploy-notification:
+    needs: [check-frontend, check-backend]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    steps:
+      - name: Deployment Status
+        run: |
+          echo "✅ CI Checks Passed!"
+          echo "🚀 Triggering Vercel & Render Auto-Deployment..."
+          echo "deployment_success=true" >> $GITHUB_ENV      
