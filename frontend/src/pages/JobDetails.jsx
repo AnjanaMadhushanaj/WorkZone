@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import api from '../api/axios';
 import '../styles/JobDetails.css';
 
 // Mock job data
@@ -20,18 +21,15 @@ export const JobDetails = () => {
 
   // Application states: 'initial', 'pending', 'approved', 'work_done', 'payment_requested', 'completed'
   const [applicationStatus, setApplicationStatus] = useState('initial');
+  const [applicationId, setApplicationId] = useState(null);
   const [showJobReceipt, setShowJobReceipt] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  // Simulate fetching application status from backend
   useEffect(() => {
     if (!isLoggedIn() || user?.role !== 'student') {
       navigate('/register');
-      return;
     }
-
-    // In real app, fetch from backend
-    // setApplicationStatus('initial');
   }, [isLoggedIn, user, navigate]);
 
   if (!job) {
@@ -44,19 +42,26 @@ export const JobDetails = () => {
 
   const handleApplyJob = async () => {
     setLoading(true);
+    setError('');
     try {
-      // API call to apply for job
-      // const response = await axios.post('/api/applications', { jobId, studentId: user.id });
+      const { data } = await api.post('/api/applications', {
+        jobId,
+        studentId: user.id,
+      });
+
+      const createdId = data?.id || data?.applicationId || job.id;
+      setApplicationId(createdId);
       setApplicationStatus('pending');
-      console.log('Applied for job:', job.id);
-    } catch (error) {
-      console.error('Error applying for job:', error);
+      console.log('Applied for job:', createdId);
+    } catch (err) {
+      console.error('Error applying for job:', err);
+      setError('Could not apply right now. Please try again.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleAccessJob = () => {
-    // Logic to access the job
     console.log('Accessing job:', job.id);
   };
 
@@ -66,20 +71,28 @@ export const JobDetails = () => {
   };
 
   const handleRequestPayment = async () => {
+    if (!applicationId) {
+      setError('Application not found. Apply to the job first.');
+      return;
+    }
+
     setLoading(true);
+    setError('');
     try {
-      // API call to request payment
-      // const response = await axios.post(`/api/applications/${appId}/request-payment`);
+      await api.post(`/api/applications/${applicationId}/request-payment`);
       setApplicationStatus('payment_requested');
       console.log('Payment requested for job:', job.id);
-    } catch (error) {
-      console.error('Error requesting payment:', error);
+    } catch (err) {
+      console.error('Error requesting payment:', err);
+      setError('Could not request payment. Please try again.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
     <div className="job-details-container">
+      {error && <div className="error-banner">{error}</div>}
       <div className="job-details-card">
         <h1>{job.title}</h1>
         <p className="company">{job.company}</p>
