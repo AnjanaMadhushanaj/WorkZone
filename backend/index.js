@@ -20,7 +20,12 @@ app.get('/', (req, res) => {
     res.send('🚀 WorkZone Backend is Running!');
 });
 
-// Start Server
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// Start Server (only in development)
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+// Export the Express app for Vercel
+module.exports = app;
