@@ -4,11 +4,11 @@ import '../styles/Home.css';
 
 // Mock data - replace with API call
 const mockJobs = [
-  { id: 1, title: 'Web Development Task', company: 'Tech Corp', price: 50, time: '2 hours' },
-  { id: 2, title: 'Logo Design', company: 'Creative Inc', price: 75, time: '3 hours' },
-  { id: 3, title: 'Data Entry', company: 'Admin Pro', price: 30, time: '1 hour' },
-  { id: 4, title: 'Content Writing', company: 'Media House', price: 40, time: '2.5 hours' },
-  { id: 5, title: 'API Integration', company: 'DevHub', price: 100, time: '4 hours' },
+  { id: 1, title: 'Web Development Task', company: 'Tech Corp', payoutSchedule: 'Daily payout (processed every 24h)', time: '2 hours' },
+  { id: 2, title: 'Logo Design', company: 'Creative Inc', payoutSchedule: 'Daily payout (processed every 24h)', time: '3 hours' },
+  { id: 3, title: 'Data Entry', company: 'Admin Pro', payoutSchedule: 'Daily payout (processed every 24h)', time: '1 hour' },
+  { id: 4, title: 'Content Writing', company: 'Media House', payoutSchedule: 'Daily payout (processed every 24h)', time: '2.5 hours' },
+  { id: 5, title: 'API Integration', company: 'DevHub', payoutSchedule: 'Daily payout (processed every 24h)', time: '4 hours' },
 ];
 
 export const Home = () => {
@@ -40,7 +40,7 @@ export const Home = () => {
                 <span className="company">{job.company}</span>
               </div>
               <div className="job-card-details">
-                <p><strong>Price:</strong> ${job.price}</p>
+                <p><strong>Payout:</strong> {job.payoutSchedule}</p>
                 <p><strong>Time:</strong> {job.time}</p>
               </div>
               <button

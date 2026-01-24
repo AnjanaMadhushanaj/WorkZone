@@ -6,11 +6,11 @@ import '../styles/JobDetails.css';
 
 // Mock job data
 const mockJobs = {
-  1: { id: 1, title: 'Web Development Task', company: 'Tech Corp', price: 50, time: '2 hours', description: 'Build a responsive website' },
-  2: { id: 2, title: 'Logo Design', company: 'Creative Inc', price: 75, time: '3 hours', description: 'Design a modern logo' },
-  3: { id: 3, title: 'Data Entry', company: 'Admin Pro', price: 30, time: '1 hour', description: 'Enter data into spreadsheet' },
-  4: { id: 4, title: 'Content Writing', company: 'Media House', price: 40, time: '2.5 hours', description: 'Write blog content' },
-  5: { id: 5, title: 'API Integration', company: 'DevHub', price: 100, time: '4 hours', description: 'Integrate third-party APIs' },
+  1: { id: 1, title: 'Web Development Task', company: 'Tech Corp', payoutSchedule: 'Daily payout (processed every 24h)', time: '2 hours', description: 'Build a responsive website' },
+  2: { id: 2, title: 'Logo Design', company: 'Creative Inc', payoutSchedule: 'Daily payout (processed every 24h)', time: '3 hours', description: 'Design a modern logo' },
+  3: { id: 3, title: 'Data Entry', company: 'Admin Pro', payoutSchedule: 'Daily payout (processed every 24h)', time: '1 hour', description: 'Enter data into spreadsheet' },
+  4: { id: 4, title: 'Content Writing', company: 'Media House', payoutSchedule: 'Daily payout (processed every 24h)', time: '2.5 hours', description: 'Write blog content' },
+  5: { id: 5, title: 'API Integration', company: 'DevHub', payoutSchedule: 'Daily payout (processed every 24h)', time: '4 hours', description: 'Integrate third-party APIs' },
 };
 
 export const JobDetails = () => {
@@ -103,8 +103,8 @@ export const JobDetails = () => {
             <span className="value">{job.time}</span>
           </div>
           <div className="info-item">
-            <span className="label">Payment:</span>
-            <span className="value price">${job.price}</span>
+            <span className="label">Payout Schedule:</span>
+            <span className="value">{job.payoutSchedule}</span>
           </div>
         </div>
 
@@ -178,8 +178,8 @@ export const JobDetails = () => {
                   <span className="value">{job.time}</span>
                 </div>
                 <div className="receipt-item">
-                  <span className="label">Amount Earned:</span>
-                  <span className="value amount">${job.price}</span>
+                  <span className="label">Payout Schedule:</span>
+                  <span className="value">{job.payoutSchedule}</span>
                 </div>
                 <div className="receipt-item">
                   <span className="label">Status:</span>
@@ -201,7 +201,7 @@ export const JobDetails = () => {
             <div className="payment-requested-state">
               <div className="status-message">
                 <p>💰 Payment request sent to {job.company}</p>
-                <p className="subtext">Amount: ${job.price}</p>
+                <p className="subtext">Daily payout will be processed automatically</p>
               </div>
               <button className="btn btn-disabled" disabled>
                 Payment Requested

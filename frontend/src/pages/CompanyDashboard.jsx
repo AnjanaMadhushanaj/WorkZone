@@ -17,8 +17,8 @@ const mockJobRequests = [
 ];
 
 const mockPaymentRequests = [
-  { id: 1, studentName: 'Alice Brown', jobTitle: 'Web Development', amount: 50, requestDate: '2025-01-16' },
-  { id: 2, studentName: 'Charlie Davis', jobTitle: 'Data Entry', amount: 30, requestDate: '2025-01-15' },
+  { id: 1, studentName: 'Alice Brown', jobTitle: 'Web Development', requestDate: '2025-01-16' },
+  { id: 2, studentName: 'Charlie Davis', jobTitle: 'Data Entry', requestDate: '2025-01-15' },
 ];
 
 export const CompanyDashboard = () => {
@@ -31,7 +31,6 @@ export const CompanyDashboard = () => {
   const [newJob, setNewJob] = useState({
     title: '',
     description: '',
-    price: '',
     time: '',
   });
 
@@ -60,22 +59,22 @@ export const CompanyDashboard = () => {
     console.log('Rejected request:', requestId);
   };
 
-  const handlePayStudent = (paymentId, amount) => {
+  const handlePayStudent = (paymentId) => {
     setPayments(payments.filter((payment) => payment.id !== paymentId));
     // API call to process payment
-    console.log('Payment processed:', paymentId, 'Amount:', amount);
-    alert(`Payment of $${amount} processed successfully!`);
+    console.log('Payment processed:', paymentId);
+    alert('Daily payout processed successfully!');
   };
 
   const handlePostJob = (e) => {
     e.preventDefault();
-    if (!newJob.title || !newJob.description || !newJob.price || !newJob.time) {
+    if (!newJob.title || !newJob.description || !newJob.time) {
       alert('Please fill all fields');
       return;
     }
     // API call to post job
     console.log('Job posted:', newJob);
-    setNewJob({ title: '', description: '', price: '', time: '' });
+    setNewJob({ title: '', description: '', time: '' });
     setShowPostJobForm(false);
     alert('Job posted successfully!');
   };
@@ -176,32 +175,17 @@ export const CompanyDashboard = () => {
                   />
                 </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="price">Price ($) *</label>
-                    <input
-                      type="number"
-                      id="price"
-                      name="price"
-                      value={newJob.price}
-                      onChange={handleInputChange}
-                      placeholder="50"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="time">Time Required *</label>
-                    <input
-                      type="text"
-                      id="time"
-                      name="time"
-                      value={newJob.time}
-                      onChange={handleInputChange}
-                      placeholder="e.g., 2 hours"
-                      required
-                    />
-                  </div>
+                <div className="form-group">
+                  <label htmlFor="time">Time Required *</label>
+                  <input
+                    type="text"
+                    id="time"
+                    name="time"
+                    value={newJob.time}
+                    onChange={handleInputChange}
+                    placeholder="e.g., 2 hours"
+                    required
+                  />
                 </div>
 
                 <div className="form-actions">
@@ -305,11 +289,11 @@ export const CompanyDashboard = () => {
                       <p className="request-date">Requested: {payment.requestDate}</p>
                     </div>
                     <div className="payment-amount">
-                      <span className="amount">${payment.amount}</span>
+                      <span className="schedule">Daily payout schedule</span>
                     </div>
                     <button
                       className="btn btn-primary"
-                      onClick={() => handlePayStudent(payment.id, payment.amount)}
+                      onClick={() => handlePayStudent(payment.id)}
                     >
                       Pay Now
                     </button>

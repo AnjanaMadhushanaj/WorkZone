@@ -43,8 +43,8 @@ export const ParticipatePage = ({ appState }) => {
                 <p className="text-lg font-bold text-gray-900">{job.rate}</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-xs text-gray-400 uppercase font-bold mb-1">Payment</p>
-                <p className="text-lg font-bold text-green-600">${job.amount}</p>
+                <p className="text-xs text-gray-400 uppercase font-bold mb-1">Payout Schedule</p>
+                <p className="text-lg font-bold text-green-600">Daily payout (processed every 24h)</p>
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@ export const CardDetailsPage = ({ appState }) => {
       jobTitle: job.title,
       userName: 'Current User',
       userEmail: 'user@example.com',
-      amount: job.amount,
+      payoutSchedule: 'Daily',
       cardDetails: cardDetails,
       status: 'pending'
     };
@@ -119,8 +119,8 @@ export const CardDetailsPage = ({ appState }) => {
           </div>
 
           <div className="bg-purple-50 rounded-xl p-4 mb-8">
-            <p className="text-sm text-gray-600 mb-1">Payment Amount</p>
-            <p className="text-3xl font-bold text-purple-600">${job?.amount}</p>
+            <p className="text-sm text-gray-600 mb-1">Payout Schedule</p>
+            <p className="text-lg font-semibold text-purple-600">Payments are processed daily for approved work</p>
           </div>
 
           <div className="space-y-5 mb-8">
@@ -241,6 +241,7 @@ export const CompanyDashboard = ({ appState }) => {
                   <th className="px-8 py-4 font-semibold">User</th>
                   <th className="px-8 py-4 font-semibold">Job Title</th>
                   <th className="px-8 py-4 font-semibold">Date Applied</th>
+                  <th className="px-8 py-4 font-semibold">Payout Schedule</th>
                   <th className="px-8 py-4 font-semibold text-right">Action</th>
                 </tr>
               </thead>
@@ -255,6 +256,7 @@ export const CompanyDashboard = ({ appState }) => {
                     </td>
                     <td className="px-8 py-4 text-sm text-gray-600">{app.jobTitle}</td>
                     <td className="px-8 py-4 text-sm text-gray-500">{app.date}</td>
+                    <td className="px-8 py-4 text-sm text-gray-500">Daily payout schedule</td>
                     <td className="px-8 py-4 text-right">
                       <button
                         onClick={() => handleApprove(app.id)}
@@ -287,7 +289,7 @@ export const CompanyDashboard = ({ appState }) => {
                 <tr>
                   <th className="px-8 py-4 font-semibold">User</th>
                   <th className="px-8 py-4 font-semibold">Job Title</th>
-                  <th className="px-8 py-4 font-semibold">Amount</th>
+                  <th className="px-8 py-4 font-semibold">Payout Schedule</th>
                   <th className="px-8 py-4 font-semibold text-right">Action</th>
                 </tr>
               </thead>
@@ -301,9 +303,7 @@ export const CompanyDashboard = ({ appState }) => {
                       </div>
                     </td>
                     <td className="px-8 py-4 text-sm text-gray-600">{payment.jobTitle}</td>
-                    <td className="px-8 py-4">
-                      <span className="text-lg font-bold text-green-600">${payment.amount}</span>
-                    </td>
+                    <td className="px-8 py-4 text-sm text-gray-600">Daily payout schedule</td>
                     <td className="px-8 py-4 text-right">
                       <button
                         onClick={() => handleTransfer(payment.id)}

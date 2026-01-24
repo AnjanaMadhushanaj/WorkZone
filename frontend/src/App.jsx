@@ -72,20 +72,18 @@ const INITIAL_JOBS = [
   { id: 24, title: 'Delivery Assistant - Food & Packages', company: 'Express Couriers Sri Lanka', location: 'Colombo 09', rate: 'LKR 1,800/hr', amount: 36000, type: 'Part-Time', tags: ['Delivery', 'Logistics', 'Transportation'], logoColor: 'bg-amber-500', description: 'Deliver food orders and courier packages in Colombo area. Use company vehicle or own transportation (with allowance). Meet customers, handle payments, and provide excellent service. Flexible scheduling with incentives for peak hours.', postedBy: 'company20' },
 ];
 
-// Mock Company Credentials
-const COMPANY_CREDENTIALS = {
-  email: 'company@workzone.com',
-  password: 'company123',
-  companyName: 'Creative Pixel Studios',
-  companyId: 'company1'
-};
-
-// --- SHARED COMPONENTS ---
+// --- COMPONENTS ---
 
 const Navbar = () => {
   const { isLoggedIn, isCompany, currentUser, logout } = useAppContext();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <nav className="bg-white border-b border-gray-100 px-6 py-4 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -106,17 +104,18 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {isLoggedIn ? (
             <>
-              <span className="text-sm text-gray-700 font-medium">{currentUser}</span>
-              <button onClick={logout} className="flex items-center gap-2 text-gray-600 font-medium hover:text-purple-600 text-sm">
-                <LogOut size={16} /> Log Out
+              <span className="text-sm font-semibold text-gray-700">Hi, {currentUser}</span>
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-600 transition-colors"
+              >
+                Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="text-gray-600 font-medium hover:text-purple-600 text-sm">Log In</Link>
-              <Link to="/signup" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-purple-200 hover:shadow-xl transition-all transform hover:-translate-y-0.5">
-                Sign Up
-              </Link>
+              <Link to="/login" className="text-purple-600 font-semibold text-sm hover:underline">Login</Link>
+              <Link to="/signup" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2.5 rounded-xl font-semibold shadow-sm hover:shadow-lg transition-all">Sign Up</Link>
             </>
           )}
         </div>
@@ -463,7 +462,7 @@ const Dashboard = () => {
 const JobDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { jobs, applications, addApplication } = useAppContext();
+  const { jobs, applications, addApplication, isLoggedIn } = useAppContext();
   const job = jobs.find(j => j.id === parseInt(id)) || jobs[0];
   
   const userApplication = applications.find(app => app.jobId === job.id);
@@ -471,6 +470,12 @@ const JobDetails = () => {
   const isApproved = userApplication?.status === 'approved';
 
   const handleApply = () => {
+    // Check if user is logged in
+    if (!isLoggedIn) {
+      navigate('/login');
+      return;
+    }
+
     const newApp = {
       id: Date.now(),
       jobId: job.id,
@@ -493,6 +498,15 @@ const JobDetails = () => {
       </div>
       
       <div className="max-w-5xl mx-auto px-6 -mt-32 relative z-10 pb-20">
+        
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 flex items-center gap-2 text-white hover:text-blue-200 transition-colors font-semibold"
+        >
+          <ChevronRight size={20} className="rotate-180" />
+          Back
+        </button>
         
         {/* Main Job Card Header */}
         <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 mb-8">
@@ -519,7 +533,7 @@ const JobDetails = () => {
               disabled={hasApplied}
               className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg shadow-lg shadow-purple-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {hasApplied ? 'Already Applied' : 'Apply Now'}
+              {hasApplied ? 'Already Applied' : isLoggedIn ? 'Apply Now' : 'Login to Apply'}
             </button>
             
             {isApproved ? (
@@ -579,7 +593,7 @@ const JobDetails = () => {
                 <div className="space-y-5">
                    {[
                      { label: 'Salary', val: job.rate, icon: CreditCard },
-                     { label: 'Payment', val: `$${job.amount}`, icon: Wallet },
+                     { label: 'Payout Schedule', val: 'Daily payout (processed every 24h)', icon: Wallet },
                      { label: 'Location', val: job.location, icon: MapPin },
                      { label: 'Job Type', val: job.type, icon: Briefcase },
                    ].map((item, i) => (
@@ -938,6 +952,15 @@ const ParticipatePage = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-3xl mx-auto">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors font-semibold"
+        >
+          <ChevronRight size={20} className="rotate-180" />
+          Back
+        </button>
+        
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-10">
           <div className="text-center mb-8">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -962,8 +985,8 @@ const ParticipatePage = () => {
                 <p className="text-lg font-bold text-gray-900">{job.rate}</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-xs text-gray-400 uppercase font-bold mb-1">Payment</p>
-                <p className="text-lg font-bold text-green-600">${job.amount}</p>
+                <p className="text-xs text-gray-400 uppercase font-bold mb-1">Payout Schedule</p>
+                <p className="text-sm font-semibold text-green-600">Daily payout (processed every 24h)</p>
               </div>
             </div>
           </div>
@@ -1028,6 +1051,15 @@ const CardDetailsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors font-semibold"
+        >
+          <ChevronRight size={20} className="rotate-180" />
+          Back
+        </button>
+        
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-10">
           <div className="flex items-center gap-3 mb-8">
             <CreditCard className="w-8 h-8 text-purple-600" />
@@ -1038,8 +1070,8 @@ const CardDetailsPage = () => {
           </div>
 
           <div className="bg-purple-50 rounded-xl p-4 mb-8">
-            <p className="text-sm text-gray-600 mb-1">Payment Amount</p>
-            <p className="text-3xl font-bold text-purple-600">${job?.amount}</p>
+            <p className="text-sm text-gray-600 mb-1">Payout Schedule</p>
+            <p className="text-base font-semibold text-purple-600">Payments are processed daily once work submissions are approved.</p>
           </div>
 
           <div className="space-y-5 mb-8">
@@ -1234,6 +1266,15 @@ const CompanyDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-7xl mx-auto space-y-8">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors font-semibold"
+        >
+          <ChevronRight size={20} className="rotate-180" />
+          Back to Home
+        </button>
+        
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
@@ -1291,8 +1332,15 @@ const CompanyDashboard = () => {
                   <input name="rate" value={jobForm.rate} onChange={handleJobFormChange} className="w-full rounded-xl border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-purple-200" />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Payment Amount ($) *</label>
-                  <input name="amount" value={jobForm.amount} onChange={handleJobFormChange} type="number" className="w-full rounded-xl border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-purple-200" />
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Payout Schedule *</label>
+                  <input
+                    name="amount"
+                    value={jobForm.amount}
+                    onChange={handleJobFormChange}
+                    type="text"
+                    placeholder="Daily payout (processed every 24h)"
+                    className="w-full rounded-xl border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-purple-200"
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Job Type</label>
@@ -1329,9 +1377,9 @@ const CompanyDashboard = () => {
                     <div key={job.id} className="border border-gray-200 rounded-xl p-4 hover:border-purple-300 transition-all">
                       <h4 className="font-bold text-gray-900 mb-2">{job.title}</h4>
                       <p className="text-sm text-gray-600 mb-3">{job.location}</p>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">{job.rate}</span>
-                        <span className="text-lg font-bold text-green-600">${job.amount}</span>
+                      <div className="flex flex-col text-sm text-gray-600">
+                        <span>{job.rate}</span>
+                        <span className="font-semibold text-green-600">Daily payout (processed every 24h)</span>
                       </div>
                       <div className="mt-3 pt-3 border-t border-gray-100">
                         <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-semibold">{job.type}</span>
@@ -1395,7 +1443,7 @@ const CompanyDashboard = () => {
                   <tr>
                     <th className="px-8 py-4">User</th>
                     <th className="px-8 py-4">Job</th>
-                    <th className="px-8 py-4">Amount</th>
+                    <th className="px-8 py-4">Payout Schedule</th>
                     <th className="px-8 py-4 text-right">Action</th>
                   </tr>
                 </thead>
@@ -1407,7 +1455,7 @@ const CompanyDashboard = () => {
                         <p className="text-xs text-gray-400">{payment.userEmail}</p>
                       </td>
                       <td className="px-8 py-4">{payment.jobTitle}</td>
-                      <td className="px-8 py-4"><span className="text-lg font-bold text-green-600">${payment.amount}</span></td>
+                      <td className="px-8 py-4"><span className="text-sm font-semibold text-gray-600">Daily payout schedule</span></td>
                       <td className="px-8 py-4 text-right">
                         <button onClick={() => transferPayment(payment.id)} className="bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700">Transfer</button>
                       </td>
@@ -1550,10 +1598,20 @@ const CompanyDashboard = () => {
 // User Dashboard
 const UserDashboard = () => {
   const { applications, userWallet, pendingMoney } = useAppContext();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-7xl mx-auto space-y-8">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors font-semibold"
+        >
+          <ChevronRight size={20} className="rotate-180" />
+          Back to Home
+        </button>
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl p-6 text-white shadow-lg">
             <div className="flex items-center gap-3 mb-4">
