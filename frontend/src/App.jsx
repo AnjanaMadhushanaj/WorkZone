@@ -636,6 +636,8 @@ const JobDetails = () => {
 // --- AUTH PAGES ---
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const { login } = useAppContext();
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [idFront, setIdFront] = useState(null);
   const [idBack, setIdBack] = useState(null);
@@ -661,8 +663,13 @@ const Signup = () => {
       return;
     }
 
-    // Simulate signup success
+    // Simulate signup success and auto-login
     setStatus('success');
+    login(form.name, false, 'user_' + Date.now());
+    setTimeout(() => {
+      console.log('Redirecting new user to home page /');
+      navigate('/');
+    }, 1000);
   };
 
   return (
