@@ -780,12 +780,18 @@ const LoginPage = () => {
     if (form.email === COMPANY_CREDENTIALS.email && form.password === COMPANY_CREDENTIALS.password) {
       login(COMPANY_CREDENTIALS.companyName, true, COMPANY_CREDENTIALS.companyId);
       setStatus('success');
-      setTimeout(() => navigate('/company-dashboard'), 1000);
+      setTimeout(() => {
+        console.log('Redirecting company to /company-dashboard');
+        navigate('/company-dashboard');
+      }, 1000);
     } else {
       // Regular user login (simplified for demo)
       login(form.email, false, 'user1');
       setStatus('success');
-      setTimeout(() => navigate('/'), 1000);
+      setTimeout(() => {
+        console.log('Redirecting user to home page /');
+        navigate('/');
+      }, 1000);
     }
   };
 
