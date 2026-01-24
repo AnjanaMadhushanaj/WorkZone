@@ -3,7 +3,7 @@
 <div align="center">
 
 ![CI Pipeline](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/ci-cd.yml/badge.svg)
-![Deploy to Production](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/main.yml/badge.svg)
+![CD Pipeline](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/main.yml/badge.svg)
 
 <br />
 
