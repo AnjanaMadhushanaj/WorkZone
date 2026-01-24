@@ -638,7 +638,7 @@ const JobDetails = () => {
 const Signup = () => {
   const navigate = useNavigate();
   const { login } = useAppContext();
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '', userType: 'student' });
   const [idFront, setIdFront] = useState(null);
   const [idBack, setIdBack] = useState(null);
   const [status, setStatus] = useState('idle'); // idle | success | error
@@ -657,8 +657,20 @@ const Signup = () => {
     setStatus('idle');
     setError('');
 
-    if (!form.name || !form.email || !form.password || !idFront || !idBack) {
+    if (!form.name || !form.email || !form.password || !form.confirmPassword || !idFront || !idBack) {
       setError('Please complete all fields and upload both ID card photos.');
+      setStatus('error');
+      return;
+    }
+
+    if (form.password !== form.confirmPassword) {
+      setError('Passwords do not match.');
+      setStatus('error');
+      return;
+    }
+
+    if (form.password.length < 6) {
+      setError('Password must be at least 6 characters.');
       setStatus('error');
       return;
     }
@@ -709,16 +721,57 @@ const Signup = () => {
             </div>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+              <input
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                type="password"
+                className="w-full rounded-xl border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-purple-200"
+                placeholder="••••••••"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Confirm Password</label>
+              <input
+                name="confirmPassword"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                type="password"
+                className="w-full rounded-xl border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-purple-200"
+                placeholder="••••••••"
+              />
+            </div>
+          </div>
+
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-            <input
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              type="password"
-              className="w-full rounded-xl border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-purple-200"
-              placeholder="••••••••"
-            />
+            <label className="block text-sm font-semibold text-gray-700 mb-2">I am a</label>
+            <div className="flex gap-6">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="userType"
+                  value="student"
+                  checked={form.userType === 'student'}
+                  onChange={handleChange}
+                  className="w-4 h-4 text-purple-600"
+                />
+                <span className="text-gray-700 font-medium">Student</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="userType"
+                  value="employee"
+                  checked={form.userType === 'employee'}
+                  onChange={handleChange}
+                  className="w-4 h-4 text-purple-600"
+                />
+                <span className="text-gray-700 font-medium">Employee</span>
+              </label>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
