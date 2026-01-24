@@ -909,7 +909,9 @@ function AppProvider({ children }) {
 
   const addPendingPayment = (payment) => {
     setPendingPayments(prev => [...prev, payment]);
-    setPendingMoney(prev => prev + payment.amount);
+    // Add the amount to pending money
+    const amount = payment.amount || 0;
+    setPendingMoney(prev => prev + amount);
   };
 
   const transferPayment = (paymentId) => {
@@ -1050,13 +1052,17 @@ const CardDetailsPage = () => {
       return;
     }
 
+    // Calculate amount from job rate (extract number from rate string like 'LKR 1,500/hr')
+    const rateMatch = job.rate.match(/[\d,]+/);
+    const rateValue = rateMatch ? parseInt(rateMatch[0].replace(/,/g, '')) : job.amount || 0;
+    
     const newPayment = {
       id: Date.now(),
       jobId: parseInt(id),
       jobTitle: job.title,
       userName: 'Current User',
       userEmail: 'user@example.com',
-      amount: job.amount,
+      amount: rateValue,
       cardDetails: cardDetails,
       status: 'pending'
     };
@@ -1306,7 +1312,7 @@ const CompanyDashboard = () => {
             <p className="text-xs text-gray-400 uppercase font-bold mb-1">Wallet Balance</p>
             <p className="text-2xl font-bold text-gray-900 flex items-center gap-2">
               <Wallet className="w-5 h-5 text-purple-600" />
-              ${companyWallet}
+              Rs. {companyWallet.toLocaleString()}
             </p>
           </div>
         </div>
@@ -1639,7 +1645,7 @@ const UserDashboard = () => {
               <Wallet className="w-8 h-8" />
               <h3 className="text-lg font-bold">My Wallet</h3>
             </div>
-            <p className="text-4xl font-bold">${userWallet}</p>
+            <p className="text-4xl font-bold">Rs. {userWallet.toLocaleString()}</p>
             <p className="text-sm opacity-80 mt-2">Available Balance</p>
           </div>
 
@@ -1648,7 +1654,7 @@ const UserDashboard = () => {
               <Clock className="w-8 h-8 text-orange-500" />
               <h3 className="text-lg font-bold text-gray-900">Pending Money</h3>
             </div>
-            <p className="text-4xl font-bold text-orange-500">${pendingMoney}</p>
+            <p className="text-4xl font-bold text-orange-500">Rs. {pendingMoney.toLocaleString()}</p>
             <p className="text-sm text-gray-500 mt-2">Awaiting Transfer</p>
           </div>
 
