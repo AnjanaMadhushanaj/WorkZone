@@ -229,6 +229,14 @@ router.post('/login', async (req, res) => {
       });
     }
 
+    // Ensure user has a password set
+    if (!user.password) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid email or password',
+      });
+    }
+
     // Check password
     const isPasswordCorrect = await user.comparePassword(password);
     if (!isPasswordCorrect) {
