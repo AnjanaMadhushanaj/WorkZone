@@ -462,7 +462,7 @@ const Dashboard = () => {
 const JobDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { jobs, applications, addApplication } = useAppContext();
+  const { jobs, applications, addApplication, isLoggedIn } = useAppContext();
   const job = jobs.find(j => j.id === parseInt(id)) || jobs[0];
   
   const userApplication = applications.find(app => app.jobId === job.id);
@@ -470,6 +470,12 @@ const JobDetails = () => {
   const isApproved = userApplication?.status === 'approved';
 
   const handleApply = () => {
+    // Check if user is logged in
+    if (!isLoggedIn) {
+      navigate('/login');
+      return;
+    }
+
     const newApp = {
       id: Date.now(),
       jobId: job.id,
@@ -527,7 +533,7 @@ const JobDetails = () => {
               disabled={hasApplied}
               className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg shadow-lg shadow-purple-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {hasApplied ? 'Already Applied' : 'Apply Now'}
+              {hasApplied ? 'Already Applied' : isLoggedIn ? 'Apply Now' : 'Login to Apply'}
             </button>
             
             {isApproved ? (
