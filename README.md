@@ -78,7 +78,7 @@ We implemented the following branching strategy to ensure code quality:
 
 ## 👷 Individual Contributions
 
-### **Anjana Madhushan Ilankoon** (DevOps Engineer)
+### **I.M.A.M.Bandara Ilankoon** (DevOps Engineer)
 * Initialized the repository and configured `.gitignore`.
 * Implemented **GitHub Actions** for CI/CD pipelines (`ci/cd.yml`, `main.yml`).
 * Managed deployment configurations on **Render/Vercel**.
