@@ -493,6 +493,15 @@ const JobDetails = () => {
       
       <div className="max-w-5xl mx-auto px-6 -mt-32 relative z-10 pb-20">
         
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 flex items-center gap-2 text-white hover:text-blue-200 transition-colors font-semibold"
+        >
+          <ChevronRight size={20} className="rotate-180" />
+          Back
+        </button>
+        
         {/* Main Job Card Header */}
         <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 mb-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
@@ -937,6 +946,15 @@ const ParticipatePage = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-3xl mx-auto">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors font-semibold"
+        >
+          <ChevronRight size={20} className="rotate-180" />
+          Back
+        </button>
+        
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-10">
           <div className="text-center mb-8">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -1027,6 +1045,15 @@ const CardDetailsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-4 flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors font-semibold"
+        >
+          <ChevronRight size={20} className="rotate-180" />
+          Back
+        </button>
+        
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-10">
           <div className="flex items-center gap-3 mb-8">
             <CreditCard className="w-8 h-8 text-purple-600" />
@@ -1233,6 +1260,15 @@ const CompanyDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-7xl mx-auto space-y-8">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors font-semibold"
+        >
+          <ChevronRight size={20} className="rotate-180" />
+          Back to Home
+        </button>
+        
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
@@ -1556,10 +1592,20 @@ const CompanyDashboard = () => {
 // User Dashboard
 const UserDashboard = () => {
   const { applications, userWallet, pendingMoney } = useAppContext();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-7xl mx-auto space-y-8">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors font-semibold"
+        >
+          <ChevronRight size={20} className="rotate-180" />
+          Back to Home
+        </button>
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl p-6 text-white shadow-lg">
             <div className="flex items-center gap-3 mb-4">
