@@ -15,6 +15,14 @@ const useAppContext = () => useContext(AppContext);
 // In a real app, you would import 'Inter' or 'Plus Jakarta Sans' from Google Fonts.
 // For now, we use standard sans-serif with refined Tailwind classes.
 
+// Demo Login Credentials
+const COMPANY_CREDENTIALS = {
+  email: 'company@workzone.com',
+  password: 'company123',
+  companyName: 'Creative Pixel Studios',
+  companyId: 'company1'
+};
+
 const INITIAL_JOBS = [
   // Retail & Customer Service Jobs
   { id: 1, title: 'Cashier - City Center Book Shop', company: 'City Center Book Store', location: 'Colombo 07', rate: 'LKR 1,500/hr', amount: 30000, type: 'Part-Time', tags: ['Retail', 'Customer Service', 'Cash Handling'], logoColor: 'bg-blue-500', description: 'Handle customer transactions at our busy bookshop in City Center. Manage point-of-sale systems, process payments accurately, and provide excellent customer service. Flexible hours perfect for campus students. No experience necessary - full training provided. Benefits include employee discount on books and magazines.', postedBy: 'company1' },
@@ -777,7 +785,7 @@ const LoginPage = () => {
       // Regular user login (simplified for demo)
       login(form.email, false, 'user1');
       setStatus('success');
-      setTimeout(() => navigate('/user-dashboard'), 1000);
+      setTimeout(() => navigate('/'), 1000);
     }
   };
 
