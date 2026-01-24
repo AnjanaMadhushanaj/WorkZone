@@ -17,7 +17,7 @@
 
 | Role | Name | Student ID |
 | :--- | :--- | :--- |
-| **DevOps Engineer** | **Anjana Madhushan Ilankoon** | `ITBIN-2313-0040` |
+| **DevOps Engineer** | **I.M.A.M.Bandara Ilankoon** | `ITBIN-2313-0040` |
 | **Frontend Developer** | **K.M.N. Vikum Kodikara** | `ITBIN-2313-0052` |
 | **Backend Developer** | **M.G.A. Dilshan Devananda** | `ITBIN-2313-0052` |
 
