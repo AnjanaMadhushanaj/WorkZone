@@ -41,6 +41,10 @@ Many students currently struggle to find part-time jobs, often relying on WhatsA
 
 **Live URL:** https://work-zone-orcin.vercel.app/
 
+## Discord
+
+**Discord Link:** https://discordapp.com/channels/1452031123772407992/1462883918498889810
+
 > The application is deployed and accessible via the link above.
 
 ---
