@@ -825,12 +825,6 @@ const LoginPage = () => {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleAdminLogin = () => {
-    login('Admin', false, 'admin_user');
-    localStorage.setItem('adminAccess', 'true');
-    navigate('/admin');
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
@@ -842,8 +836,18 @@ const LoginPage = () => {
       return;
     }
 
+    // Check for admin credentials
+    if (form.email === 'admin' && form.password === 'admin123') {
+      login('Admin', false, 'admin_user');
+      localStorage.setItem('adminAccess', 'true');
+      setStatus('success');
+      setTimeout(() => navigate('/admin'), 500);
+      return;
+    }
+
     // Check if company credentials
     if (form.email === COMPANY_CREDENTIALS.email && form.password === COMPANY_CREDENTIALS.password) {
+      localStorage.removeItem('adminAccess');
       login(COMPANY_CREDENTIALS.companyName, true, COMPANY_CREDENTIALS.companyId);
       setStatus('success');
       setTimeout(() => {
@@ -852,6 +856,7 @@ const LoginPage = () => {
       }, 1000);
     } else {
       // Regular user login (simplified for demo)
+      localStorage.removeItem('adminAccess');
       login(form.email, false, 'user1');
       setStatus('success');
       setTimeout(() => {
@@ -899,21 +904,12 @@ const LoginPage = () => {
           {error && <div className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg p-3">{error}</div>}
           {status === 'success' && <div className="text-sm text-green-600 bg-green-50 border border-green-100 rounded-lg p-3">Logged in! (demo state)</div>}
 
-          <div className="flex gap-4">
-            <button
-              type="submit"
-              className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-purple-200 hover:shadow-xl transition-all"
-            >
-              Log In
-            </button>
-            <button
-              type="button"
-              onClick={handleAdminLogin}
-              className="flex-1 bg-gradient-to-r from-orange-600 to-red-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-orange-200 hover:shadow-xl transition-all"
-            >
-              Admin Panel
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-purple-200 hover:shadow-xl transition-all"
+          >
+            Log In
+          </button>
         </form>
 
         <p className="text-sm text-gray-500 mt-6 text-center">
@@ -952,6 +948,7 @@ function AppProvider({ children }) {
     setIsCompany(false);
     setCurrentUser('');
     setCurrentUserId('');
+    localStorage.removeItem('adminAccess');
   };
 
   const postJob = (jobData) => {
