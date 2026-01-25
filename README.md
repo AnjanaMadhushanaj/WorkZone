@@ -111,7 +111,7 @@ We implemented the following branching strategy to ensure code quality:
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/AnjanaMadhushanaj/WorkZone.git
+    git clone [https://github.com/AnjanaMadhushanaj/WorkZone.git](https://github.com/AnjanaMadhushanaj/WorkZone.git)
     cd workzone
     ```
 
