@@ -2,10 +2,6 @@
 
 <div align="center">
 
-![CI Pipeline](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/ci-cd.yml/badge.svg)
-![Deploy to Production](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/main.yml/badge.svg)
-
-<br />
 
 **A web-based platform designed to help students find trusted part-time jobs while continuing their studies—without brokers or middlemen.**
 
@@ -111,7 +107,7 @@ We implemented the following branching strategy to ensure code quality:
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/AnjanaMadhushanaj/WorkZone.git
+    git clone [https://github.com/AnjanaMadhushanaj/WorkZone.git](https://github.com/AnjanaMadhushanaj/WorkZone.git)
     cd workzone
     ```
 
@@ -145,6 +141,9 @@ Our project uses **GitHub Actions** for automation:
 * **Merge Conflicts:** Encountered conflicts in `package.json` when merging branches, resolved by manual code review.
 
 ---
+###  Build Status
+![CI Pipeline](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/ci-cd.yml/badge.svg)
+![CD Pipeline](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/main.yml/badge.svg)
 
 <div align="center">
   <p>Built for Systems Administration & Maintenance Assignment (2026)</p>
