@@ -17,9 +17,9 @@
 
 | Role | Name | Student ID |
 | :--- | :--- | :--- |
-| **DevOps Engineer** | **Anjana Madhushan Ilankoon** | `ITBIN-2313-0040` |
-| **Frontend Developer** | **K.M.N. Vikum Kodikara** | `ITBIN-2313-0052` |
-| **Backend Developer** | **M.G.A. Dilshan Devananda** | `ITBIN-2313-0052` |
+| **DevOps Engineer** | **Anjana Madhushan** | `ITBIN-2313-0040` |
+| **Frontend Developer** | **Nimantha Vikum Kodikara** | `ITBIN-2313-0052` |
+| **Backend Developer** | **Avishka Devananda** | `ITBIN-2313-0052` |
 
 ---
 
@@ -78,21 +78,21 @@ We implemented the following branching strategy to ensure code quality:
 
 ## 👷 Individual Contributions
 
-### **Anjana Madhushan Ilankoon** (DevOps Engineer)
+### **Anjana Madhushan** (DevOps Engineer)
 * Initialized the repository and configured `.gitignore`.
 * Implemented **GitHub Actions** for CI/CD pipelines (`ci/cd.yml`, `main.yml`).
 * Managed deployment configurations on **Render/Vercel**.
 * Wrote shell scripts for automation and managed environment variables.
 * Resolved merge conflicts during the integration phase.
 
-### **K.M.N. Vikum Kodikara** (Frontend Developer)
+### **Nimantha Vikum Kodikara** (Frontend Developer)
 * Designed the responsive UI using **Tailwind CSS**.
 * Developed the Student and Company dashboard layouts.
 * Implemented frontend validation for Login/Register forms.
 * Integrated Frontend with Backend APIs using Axios.
 * Improved mobile responsiveness and UX.
 
-### **M.G.A. Dilshan Devananda** (Backend Developer)
+### **Avishka Devananda** (Backend Developer)
 * Designed the Backend architecture and Database schema.
 * Implemented Authentication APIs (Login/Register/Google Auth).
 * Created Job Management and User Profile APIs.
