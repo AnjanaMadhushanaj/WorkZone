@@ -13,7 +13,7 @@
 
 | Role | Name | Student ID |
 | :--- | :--- | :--- |
-| **DevOps Engineer** | **I.M.A.M.Bandara Ilankoon** | `ITBIN-2313-0040` |
+| **DevOps Engineer** | **Anjana Madhushan** | `ITBIN-2313-0040` |
 | **Frontend Developer** | **K.M.N. Vikum Kodikara** | `ITBIN-2313-0052` |
 | **Backend Developer** | **M.G.A. Dilshan Devananda** | `ITBIN-2313-0021` |
 
@@ -74,7 +74,7 @@ We implemented the following branching strategy to ensure code quality:
 
 ## 👷 Individual Contributions
 
-### **I.M.A.M.Bandara Ilankoon** (DevOps Engineer)
+### **Anjana Madhushan** (DevOps Engineer)
 * Initialized the repository and configured `.gitignore`.
 * Implemented **GitHub Actions** for CI/CD pipelines (`ci/cd.yml`, `main.yml`).
 * Managed deployment configurations on **Render/Vercel**.
