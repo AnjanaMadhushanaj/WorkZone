@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -10,9 +11,12 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Routes
+app.use('/api/auth', authRoutes);
+
 // Basic Route
 app.get('/', (req, res) => {
-    res.send('🚀 WorkZone Backend is Running on Render!');
+    res.send('Welcome to WorkZone API - CI/CD pipeline is working!');
 });
 
 // Database Connection

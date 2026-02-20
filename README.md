@@ -15,7 +15,7 @@
 | :--- | :--- | :--- |
 | **DevOps Engineer** | **Anjana Madhushan** | `ITBIN-2313-0040` |
 | **Frontend Developer** | **Nimantha Vikum Kodikara** | `ITBIN-2313-0052` |
-| **Backend Developer** | **Avishka Devananda** | `ITBIN-2313-0021` |
+| **Backend Developer** | **Avishka Devananda** | `ITBIN-2313-0052` |
 
 ---
 
@@ -36,6 +36,10 @@ Many students currently struggle to find part-time jobs, often relying on WhatsA
 ## 🌐 Live Deployment
 
 **Live URL:** https://work-zone-orcin.vercel.app/
+
+## Discord
+
+**Discord Link:** https://discordapp.com/channels/1452031123772407992/1462883918498889810
 
 > The application is deployed and accessible via the link above.
 
