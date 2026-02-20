@@ -16,7 +16,7 @@ app.use('/api/auth', authRoutes);
 
 // Basic Route
 app.get('/', (req, res) => {
-    res.send('🚀 WorkZone Backend is Running on Render!');
+    res.send('Welcome to WorkZone API - CI/CD pipeline is working!');
 });
 
 // Database Connection

@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams, useNavigate } from 'react-router-dom';
-import { 
-  Search, MapPin, Briefcase, User, Bell, LayoutDashboard, 
+import {
+  Search, MapPin, Briefcase, User, Bell, LayoutDashboard,
   FileText, Settings, CreditCard, ChevronRight, Filter,
   Home as HomeIcon, LogOut, CheckCircle, TrendingUp, Wallet, Clock,
   Facebook, Twitter, Linkedin, Instagram, Mail, Phone
@@ -26,7 +26,7 @@ const COMPANY_CREDENTIALS = {
 const INITIAL_JOBS = [
   // Retail & Customer Service Jobs
   { id: 1, title: 'Cashier - City Center Book Shop', company: 'City Center Book Store', location: 'Colombo 07', rate: 'LKR 1,500/hr', amount: 30000, type: 'Part-Time', tags: ['Retail', 'Customer Service', 'Cash Handling'], logoColor: 'bg-blue-500', description: 'Handle customer transactions at our busy bookshop in City Center. Manage point-of-sale systems, process payments accurately, and provide excellent customer service. Flexible hours perfect for campus students. No experience necessary - full training provided. Benefits include employee discount on books and magazines.', postedBy: 'company1' },
-  
+
   { id: 2, title: 'Cashier & Retail Associate - Food City Supermarket', company: 'Food City Supermarket', location: 'Colombo 03', rate: 'LKR 1,200/hr', amount: 24000, type: 'Part-Time', tags: ['Retail', 'Cashier', 'Supermarket'], logoColor: 'bg-green-600', description: 'Work as a cashier and retail assistant at Food City. Responsibilities include operating checkout systems, scanning items, handling payments, and assisting customers with their shopping. Evening and weekend shifts available. Competitive pay with performance bonuses. Employee discounts on groceries and household items.', postedBy: 'company2' },
 
   // Promotions & Marketing
@@ -61,11 +61,11 @@ const INITIAL_JOBS = [
 
   // Original Jobs (Kept)
   { id: 16, title: 'Graphic Designer - Digital Branding', company: 'Creative Pixel Studios', location: 'Colombo', rate: 'LKR 3,500/hr', amount: 87500, type: 'Freelance', tags: ['Design', 'Branding'], logoColor: 'bg-orange-500', description: 'Create stunning visual designs for local and international marketing campaigns. Work with modern design tools and deliver high-quality branding assets for growing businesses.', postedBy: 'company1' },
-  
+
   { id: 17, title: 'UX/UI Designer - Mobile Apps', company: 'TechFlow Asia', location: 'Colombo, Western Province', rate: 'LKR 8,000/hr', amount: 200000, type: 'Full-Time', tags: ['UI/UX', 'Figma', 'Mobile'], logoColor: 'bg-blue-600', description: 'Design user-friendly interfaces for mobile applications targeting the Asian market. Collaborate with development teams to create seamless user experiences.', postedBy: 'company2' },
-  
+
   { id: 18, title: 'English Tutor for O/L & A/L Students', company: 'EduLearn Sri Lanka', location: 'Kandy', rate: 'LKR 2,000/hr', amount: 50000, type: 'Part-Time', tags: ['Teaching', 'English', 'Exam Prep'], logoColor: 'bg-green-500', description: 'Teach English language and literature to O/L and A/L students. Help students prepare for national exams with proven teaching methodologies.', postedBy: 'company1' },
-  
+
   { id: 19, title: 'Social Media Manager - Sinhala & English', company: 'Local Buzz Marketing', location: 'Galle', rate: 'LKR 3,000/hr', amount: 75000, type: 'Contract', tags: ['Marketing', 'Social Media', 'Content'], logoColor: 'bg-pink-500', description: 'Manage social media accounts for local SMEs and startups. Create engaging content in Sinhala and English, manage community engagement, and track analytics.', postedBy: 'company1' },
 
   // Additional Professional Jobs
@@ -98,7 +98,7 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <img src="/logo.jpeg" alt="WorkZone" className="h-24" />
         </div>
-        
+
         <div className="hidden md:flex gap-8 text-sm font-semibold text-gray-500">
           <Link to="/" className="hover:text-purple-600 transition-colors">Home</Link>
           <Link to="/about" className="hover:text-purple-600 transition-colors">About Us</Link>
@@ -142,10 +142,10 @@ const JobCard = ({ job }) => (
         {job.type}
       </span>
     </div>
-    
+
     <h3 className="font-bold text-lg text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">{job.title}</h3>
     <p className="text-sm text-gray-500 mb-4">{job.company}</p>
-    
+
     <div className="flex items-center gap-4 text-sm text-gray-500 mb-6 border-b border-gray-50 pb-4">
       <div className="flex items-center gap-1"><MapPin size={14} className="text-gray-400" /> {job.location}</div>
       <div className="flex items-center gap-1"><Briefcase size={14} className="text-gray-400" /> {job.rate}</div>
@@ -161,11 +161,11 @@ const JobCard = ({ job }) => (
 
 const Home = () => {
   const { jobs } = useAppContext();
-  
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       <Navbar />
-      
+
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-purple-700 to-blue-600 pt-24 pb-32 px-6 relative overflow-hidden">
         {/* Decorative Background Elements */}
@@ -174,7 +174,7 @@ const Home = () => {
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-2 leading-tight">
-            WorkZone
+            Welcome to WorkZone 🚀
           </h1>
           <p className="text-2xl md:text-3xl font-bold text-blue-100 mb-8">Turn Spare Time into Income</p>
           <p className="text-blue-50 text-lg mb-10 max-w-2xl mx-auto">
@@ -207,14 +207,14 @@ const Home = () => {
             <h2 className="text-2xl font-bold text-gray-900">Latest Opportunities</h2>
             <p className="text-gray-500 mt-1">Fresh jobs posted just for you</p>
           </div>
-          <Link to="/jobs" className="text-purple-600 font-semibold flex items-center hover:underline">View All <ChevronRight size={16}/></Link>
+          <Link to="/jobs" className="text-purple-600 font-semibold flex items-center hover:underline">View All <ChevronRight size={16} /></Link>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {jobs.map(job => <JobCard key={job.id} job={job} />)}
         </div>
       </div>
-      
+
       {/* Professional Black Footer */}
       <footer className="bg-black text-gray-300 pt-16 pb-8 mt-20">
         <div className="max-w-7xl mx-auto px-6">
@@ -309,8 +309,8 @@ const Dashboard = () => {
   // Sidebar Item Component
   const NavItem = ({ icon: Icon, label, active }) => (
     <div className={`flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer transition-all font-medium text-sm
-      ${active 
-        ? 'bg-purple-50 text-purple-700 shadow-sm' 
+      ${active
+        ? 'bg-purple-50 text-purple-700 shadow-sm'
         : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
       }`}>
       <Icon size={18} />
@@ -325,7 +325,7 @@ const Dashboard = () => {
         <div className="flex items-center gap-2 mb-10 px-2">
           <img src="/logo.jpeg" alt="WorkZone" className="h-20" />
         </div>
-        
+
         <div className="space-y-1 flex-1">
           <p className="px-4 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Menu</p>
           <NavItem icon={LayoutDashboard} label="Dashboard" active />
@@ -333,14 +333,14 @@ const Dashboard = () => {
           <NavItem icon={FileText} label="Applications" />
           <NavItem icon={CreditCard} label="Payments" />
           <div className="pt-6 pb-2">
-             <p className="px-4 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">General</p>
+            <p className="px-4 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">General</p>
           </div>
           <NavItem icon={User} label="My Profile" />
           <NavItem icon={Settings} label="Settings" />
         </div>
-        
+
         <div className="mt-auto pt-6 border-t border-gray-100">
-           <NavItem icon={LogOut} label="Log Out" />
+          <NavItem icon={LogOut} label="Log Out" />
         </div>
       </aside>
 
@@ -354,68 +354,68 @@ const Dashboard = () => {
               Post New Job
             </Link>
             <div className="flex items-center gap-3 border-l pl-6 border-gray-200">
-               <div className="text-right hidden md:block">
-                 <p className="text-sm font-bold text-gray-800">Martin Gornan</p>
-                 <p className="text-xs text-gray-500">Student Account</p>
-               </div>
-               <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden border-2 border-white shadow-sm">
-                 {/* Placeholder Avatar */}
-                 <div className="w-full h-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">MG</div>
-               </div>
+              <div className="text-right hidden md:block">
+                <p className="text-sm font-bold text-gray-800">Martin Gornan</p>
+                <p className="text-xs text-gray-500">Student Account</p>
+              </div>
+              <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                {/* Placeholder Avatar */}
+                <div className="w-full h-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">MG</div>
+              </div>
             </div>
           </div>
         </header>
 
         <div className="p-8 max-w-7xl mx-auto space-y-8">
-          
+
           {/* Stats Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-             {[
-               { label: 'Total Users', val: '193', color: 'bg-purple-100 text-purple-600', icon: User },
-               { label: 'Active Jobs', val: '12', color: 'bg-green-100 text-green-600', icon: Briefcase },
-               { label: 'Pending', val: '3', color: 'bg-orange-100 text-orange-600', icon: CheckCircle },
-               { label: 'Revenue', val: '$1,200', color: 'bg-blue-100 text-blue-600', icon: TrendingUp },
-             ].map((stat, i) => (
-               <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
-                 <div>
-                   <p className="text-gray-500 text-sm font-medium">{stat.label}</p>
-                   <h3 className="text-2xl font-bold text-gray-900 mt-1">{stat.val}</h3>
-                 </div>
-                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${stat.color}`}>
-                    <stat.icon size={24} />
-                 </div>
-               </div>
-             ))}
+            {[
+              { label: 'Total Users', val: '193', color: 'bg-purple-100 text-purple-600', icon: User },
+              { label: 'Active Jobs', val: '12', color: 'bg-green-100 text-green-600', icon: Briefcase },
+              { label: 'Pending', val: '3', color: 'bg-orange-100 text-orange-600', icon: CheckCircle },
+              { label: 'Revenue', val: '$1,200', color: 'bg-blue-100 text-blue-600', icon: TrendingUp },
+            ].map((stat, i) => (
+              <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between">
+                <div>
+                  <p className="text-gray-500 text-sm font-medium">{stat.label}</p>
+                  <h3 className="text-2xl font-bold text-gray-900 mt-1">{stat.val}</h3>
+                </div>
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${stat.color}`}>
+                  <stat.icon size={24} />
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Graph Section (Custom SVG for cleaner look) */}
           <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
             <div className="flex justify-between items-center mb-6">
-               <h3 className="font-bold text-gray-800">Website Traffic</h3>
-               <button className="text-sm border border-gray-200 rounded-lg px-3 py-1 text-gray-500 hover:bg-gray-50 flex items-center gap-2">
-                 Last 7 Days <Filter size={14}/>
-               </button>
+              <h3 className="font-bold text-gray-800">Website Traffic</h3>
+              <button className="text-sm border border-gray-200 rounded-lg px-3 py-1 text-gray-500 hover:bg-gray-50 flex items-center gap-2">
+                Last 7 Days <Filter size={14} />
+              </button>
             </div>
             <div className="h-64 w-full relative">
-               {/* Grid Lines */}
-               <div className="absolute inset-0 flex flex-col justify-between text-xs text-gray-300">
-                  <div className="border-b border-dashed border-gray-100 w-full h-full"></div>
-                  <div className="border-b border-dashed border-gray-100 w-full h-full"></div>
-                  <div className="border-b border-dashed border-gray-100 w-full h-full"></div>
-                  <div className="border-b border-dashed border-gray-100 w-full h-full"></div>
-               </div>
-               
-               {/* The Curve */}
-               <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
-                 <defs>
-                   <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
-                     <stop offset="0%" stopColor="#a855f7" stopOpacity="0.4" />
-                     <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
-                   </linearGradient>
-                 </defs>
-                 <path d="M0,200 C150,200 150,100 300,100 C450,100 450,180 600,150 C750,120 750,50 900,50 L900,256 L0,256 Z" fill="url(#gradient)" />
-                 <path d="M0,200 C150,200 150,100 300,100 C450,100 450,180 600,150 C750,120 750,50 900,50" fill="none" stroke="#a855f7" strokeWidth="3" strokeLinecap="round" />
-               </svg>
+              {/* Grid Lines */}
+              <div className="absolute inset-0 flex flex-col justify-between text-xs text-gray-300">
+                <div className="border-b border-dashed border-gray-100 w-full h-full"></div>
+                <div className="border-b border-dashed border-gray-100 w-full h-full"></div>
+                <div className="border-b border-dashed border-gray-100 w-full h-full"></div>
+                <div className="border-b border-dashed border-gray-100 w-full h-full"></div>
+              </div>
+
+              {/* The Curve */}
+              <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#a855f7" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <path d="M0,200 C150,200 150,100 300,100 C450,100 450,180 600,150 C750,120 750,50 900,50 L900,256 L0,256 Z" fill="url(#gradient)" />
+                <path d="M0,200 C150,200 150,100 300,100 C450,100 450,180 600,150 C750,120 750,50 900,50" fill="none" stroke="#a855f7" strokeWidth="3" strokeLinecap="round" />
+              </svg>
             </div>
             <div className="flex justify-between text-xs text-gray-400 mt-4 px-2">
               <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
@@ -472,7 +472,7 @@ const JobDetails = () => {
   const navigate = useNavigate();
   const { jobs, applications, addApplication, isLoggedIn } = useAppContext();
   const job = jobs.find(j => j.id === parseInt(id)) || jobs[0];
-  
+
   const userApplication = applications.find(app => app.jobId === job.id);
   const hasApplied = !!userApplication;
   const isApproved = userApplication?.status === 'approved';
@@ -504,9 +504,9 @@ const JobDetails = () => {
       <div className="bg-gradient-to-r from-purple-900 to-blue-700 h-64 w-full relative">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900 to-purple-900 opacity-90"></div>
       </div>
-      
+
       <div className="max-w-5xl mx-auto px-6 -mt-32 relative z-10 pb-20">
-        
+
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
@@ -515,22 +515,22 @@ const JobDetails = () => {
           <ChevronRight size={20} className="rotate-180" />
           Back
         </button>
-        
+
         {/* Main Job Card Header */}
         <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 mb-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
             <div className="flex items-center gap-6">
-               <div className={`w-20 h-20 ${job.logoColor} rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-md`}>
-                 {job.company.charAt(0)}
-               </div>
-               <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-1">{job.title}</h1>
-                  <div className="flex items-center gap-2 text-gray-500 font-medium">
-                    <span className="text-purple-600">{job.company}</span>
-                    <span>•</span>
-                    <span>Posted 2 days ago</span>
-                  </div>
-               </div>
+              <div className={`w-20 h-20 ${job.logoColor} rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-md`}>
+                {job.company.charAt(0)}
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-1">{job.title}</h1>
+                <div className="flex items-center gap-2 text-gray-500 font-medium">
+                  <span className="text-purple-600">{job.company}</span>
+                  <span>•</span>
+                  <span>Posted 2 days ago</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -543,7 +543,7 @@ const JobDetails = () => {
             >
               {hasApplied ? 'Already Applied' : isLoggedIn ? 'Apply Now' : 'Login to Apply'}
             </button>
-            
+
             {isApproved ? (
               <Link
                 to={`/participate/${job.id}`}
@@ -565,66 +565,66 @@ const JobDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Content */}
           <div className="lg:col-span-2 space-y-8">
-             <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Job Description</h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  {job.description}
-                </p>
-                
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Key Responsibilities</h3>
-                <ul className="space-y-3 mb-6">
-                  {['Develop unique creative concepts', 'Work with marketing team', 'Ensure final graphics are visually appealing'].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-gray-600">
-                      <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Job Description</h3>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                {job.description}
+              </p>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Requirements</h3>
-                <ul className="space-y-3">
-                  {['Proficiency in Adobe Suite', 'Strong portfolio of illustrations', 'Excellent communication skills'].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-gray-600">
-                      <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-             </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Key Responsibilities</h3>
+              <ul className="space-y-3 mb-6">
+                {['Develop unique creative concepts', 'Work with marketing team', 'Ensure final graphics are visually appealing'].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-600">
+                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></div>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Requirements</h3>
+              <ul className="space-y-3">
+                {['Proficiency in Adobe Suite', 'Strong portfolio of illustrations', 'Excellent communication skills'].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-600">
+                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0"></div>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Right Sidebar */}
           <div className="space-y-6">
-             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <h4 className="font-bold text-gray-900 mb-6">Job Overview</h4>
-                
-                <div className="space-y-5">
-                   {[
-                     { label: 'Salary', val: job.rate, icon: CreditCard },
-                     { label: 'Payout Schedule', val: 'Daily payout (processed every 24h)', icon: Wallet },
-                     { label: 'Location', val: job.location, icon: MapPin },
-                     { label: 'Job Type', val: job.type, icon: Briefcase },
-                   ].map((item, i) => (
-                     <div key={i} className="flex items-center gap-4">
-                       <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
-                         <item.icon size={18} />
-                       </div>
-                       <div>
-                         <p className="text-xs text-gray-400 font-bold uppercase tracking-wide">{item.label}</p>
-                         <p className="font-semibold text-gray-800">{item.val}</p>
-                       </div>
-                     </div>
-                   ))}
-                </div>
-             </div>
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <h4 className="font-bold text-gray-900 mb-6">Job Overview</h4>
 
-             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <h4 className="font-bold text-gray-900 mb-4">About the Company</h4>
-                <p className="text-sm text-gray-500 leading-relaxed mb-4">
-                  {job.company} is a leading company helping startups build their brand identity.
-                </p>
-                <Link to="#" className="text-purple-600 font-semibold text-sm hover:underline">View Company Profile</Link>
-             </div>
+              <div className="space-y-5">
+                {[
+                  { label: 'Salary', val: job.rate, icon: CreditCard },
+                  { label: 'Payout Schedule', val: 'Daily payout (processed every 24h)', icon: Wallet },
+                  { label: 'Location', val: job.location, icon: MapPin },
+                  { label: 'Job Type', val: job.type, icon: Briefcase },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
+                      <item.icon size={18} />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-400 font-bold uppercase tracking-wide">{item.label}</p>
+                      <p className="font-semibold text-gray-800">{item.val}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <h4 className="font-bold text-gray-900 mb-4">About the Company</h4>
+              <p className="text-sm text-gray-500 leading-relaxed mb-4">
+                {job.company} is a leading company helping startups build their brand identity.
+              </p>
+              <Link to="#" className="text-purple-600 font-semibold text-sm hover:underline">View Company Profile</Link>
+            </div>
           </div>
         </div>
 
@@ -931,7 +931,7 @@ function AppProvider({ children }) {
   const [isCompany, setIsCompany] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
   const [currentUserId, setCurrentUserId] = useState('');
-  
+
   const [jobs, setJobs] = useState(INITIAL_JOBS);
   const [applications, setApplications] = useState([]);
   const [pendingPayments, setPendingPayments] = useState([]);
@@ -1051,7 +1051,7 @@ const ParticipatePage = () => {
           <ChevronRight size={20} className="rotate-180" />
           Back
         </button>
-        
+
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-10">
           <div className="text-center mb-8">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -1123,7 +1123,7 @@ const CardDetailsPage = () => {
     // Calculate amount from job rate (extract number from rate string like 'LKR 1,500/hr')
     const rateMatch = job.rate.match(/[\d,]+/);
     const rateValue = rateMatch ? parseInt(rateMatch[0].replace(/,/g, '')) : job.amount || 0;
-    
+
     const newPayment = {
       id: Date.now(),
       jobId: parseInt(id),
@@ -1154,7 +1154,7 @@ const CardDetailsPage = () => {
           <ChevronRight size={20} className="rotate-180" />
           Back
         </button>
-        
+
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-10">
           <div className="flex items-center gap-3 mb-8">
             <CreditCard className="w-8 h-8 text-purple-600" />
@@ -1369,7 +1369,7 @@ const CompanyDashboard = () => {
           <ChevronRight size={20} className="rotate-180" />
           Back to Home
         </button>
-        
+
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
@@ -1706,7 +1706,7 @@ const UserDashboard = () => {
           <ChevronRight size={20} className="rotate-180" />
           Back to Home
         </button>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl p-6 text-white shadow-lg">
             <div className="flex items-center gap-3 mb-4">
@@ -1755,9 +1755,8 @@ const UserDashboard = () => {
                   <td className="px-8 py-4 font-semibold">{app.jobTitle}</td>
                   <td className="px-8 py-4 text-gray-600">{app.company}</td>
                   <td className="px-8 py-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      app.status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
-                    }`}>
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${app.status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                      }`}>
                       {app.status}
                     </span>
                   </td>
@@ -1787,78 +1786,78 @@ const AboutUs = () => {
     <>
       <Navbar />
       <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-sm border p-8 md:p-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About WorkZone</h1>
-          
-          <div className="prose prose-lg max-w-none space-y-6 text-gray-700">
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h2>
-              <p>
-                WorkZone is dedicated to turning spare time into income. We believe that everyone has valuable skills 
-                and time to share. Our platform connects talented freelancers, part-time workers, and professionals with 
-                companies seeking their expertise, creating flexible work opportunities across Sri Lanka.
-              </p>
-            </section>
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-sm border p-8 md:p-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About WorkZone</h1>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Why Choose WorkZone?</h2>
-              <ul className="space-y-3 list-disc list-inside">
-                <li>🎯 <strong>Flexible Opportunities:</strong> Work on your own schedule, from graphic design to tutoring</li>
-                <li>💰 <strong>Fair Compensation:</strong> Competitive rates in LKR with transparent pricing</li>
-                <li>🛡️ <strong>Secure Transactions:</strong> Safe payment processing and transaction tracking</li>
-                <li>👥 <strong>Local Focus:</strong> Supporting Sri Lankan businesses and workers</li>
-                <li>🚀 <strong>Growth:</strong> Build your professional network and portfolio</li>
-              </ul>
-            </section>
+            <div className="prose prose-lg max-w-none space-y-6 text-gray-700">
+              <section>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h2>
+                <p>
+                  WorkZone is dedicated to turning spare time into income. We believe that everyone has valuable skills
+                  and time to share. Our platform connects talented freelancers, part-time workers, and professionals with
+                  companies seeking their expertise, creating flexible work opportunities across Sri Lanka.
+                </p>
+              </section>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Story</h2>
-              <p>
-                Founded in 2024, WorkZone emerged from a simple idea: make freelance and part-time work accessible to everyone. 
-                We started with a small group of professionals across Sri Lanka who wanted to showcase their talents while maintaining 
-                flexibility. Today, we're proud to serve hundreds of workers and dozens of companies across the island.
-              </p>
-            </section>
+              <section>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Why Choose WorkZone?</h2>
+                <ul className="space-y-3 list-disc list-inside">
+                  <li>🎯 <strong>Flexible Opportunities:</strong> Work on your own schedule, from graphic design to tutoring</li>
+                  <li>💰 <strong>Fair Compensation:</strong> Competitive rates in LKR with transparent pricing</li>
+                  <li>🛡️ <strong>Secure Transactions:</strong> Safe payment processing and transaction tracking</li>
+                  <li>👥 <strong>Local Focus:</strong> Supporting Sri Lankan businesses and workers</li>
+                  <li>🚀 <strong>Growth:</strong> Build your professional network and portfolio</li>
+                </ul>
+              </section>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Values</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-6 rounded-xl">
-                  <h3 className="font-bold text-purple-900 mb-2">Transparency</h3>
-                  <p className="text-sm text-gray-700">Clear terms, no hidden fees, honest communication</p>
-                </div>
-                <div className="bg-gradient-to-br from-blue-50 to-green-50 p-6 rounded-xl">
-                  <h3 className="font-bold text-blue-900 mb-2">Reliability</h3>
-                  <p className="text-sm text-gray-700">Secure payments, trusted platform, consistent service</p>
-                </div>
-                <div className="bg-gradient-to-br from-green-50 to-pink-50 p-6 rounded-xl">
-                  <h3 className="font-bold text-green-900 mb-2">Empowerment</h3>
-                  <p className="text-sm text-gray-700">Enable talent, support growth, create opportunities</p>
-                </div>
-                <div className="bg-gradient-to-br from-pink-50 to-purple-50 p-6 rounded-xl">
-                  <h3 className="font-bold text-pink-900 mb-2">Community</h3>
-                  <p className="text-sm text-gray-700">Local first, connected, collaborative ecosystem</p>
-                </div>
-              </div>
-            </section>
+              <section>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Story</h2>
+                <p>
+                  Founded in 2024, WorkZone emerged from a simple idea: make freelance and part-time work accessible to everyone.
+                  We started with a small group of professionals across Sri Lanka who wanted to showcase their talents while maintaining
+                  flexibility. Today, we're proud to serve hundreds of workers and dozens of companies across the island.
+                </p>
+              </section>
 
-            <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Contact Us</h2>
-              <p className="mb-4">
-                Have questions about WorkZone? We'd love to hear from you!
-              </p>
-              <Link 
-                to="/contact"
-                className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg transition-all"
-              >
-                Get In Touch
-              </Link>
-            </section>
+              <section>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Values</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-6 rounded-xl">
+                    <h3 className="font-bold text-purple-900 mb-2">Transparency</h3>
+                    <p className="text-sm text-gray-700">Clear terms, no hidden fees, honest communication</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-blue-50 to-green-50 p-6 rounded-xl">
+                    <h3 className="font-bold text-blue-900 mb-2">Reliability</h3>
+                    <p className="text-sm text-gray-700">Secure payments, trusted platform, consistent service</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-green-50 to-pink-50 p-6 rounded-xl">
+                    <h3 className="font-bold text-green-900 mb-2">Empowerment</h3>
+                    <p className="text-sm text-gray-700">Enable talent, support growth, create opportunities</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-pink-50 to-purple-50 p-6 rounded-xl">
+                    <h3 className="font-bold text-pink-900 mb-2">Community</h3>
+                    <p className="text-sm text-gray-700">Local first, connected, collaborative ecosystem</p>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Contact Us</h2>
+                <p className="mb-4">
+                  Have questions about WorkZone? We'd love to hear from you!
+                </p>
+                <Link
+                  to="/contact"
+                  className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg transition-all"
+                >
+                  Get In Touch
+                </Link>
+              </section>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
@@ -1884,113 +1883,113 @@ const ContactUs = () => {
     <>
       <Navbar />
       <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Contact Us</h1>
-        <p className="text-center text-gray-600 mb-12">We're here to help. Reach out with any questions or concerns.</p>
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Contact Us</h1>
+          <p className="text-center text-gray-600 mb-12">We're here to help. Reach out with any questions or concerns.</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div className="bg-white rounded-2xl shadow-sm border p-6 text-center">
-            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FileText className="text-purple-600" size={24} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="bg-white rounded-2xl shadow-sm border p-6 text-center">
+              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <FileText className="text-purple-600" size={24} />
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2">Email</h3>
+              <p className="text-gray-600">support@workzone.lk</p>
+              <p className="text-sm text-gray-500 mt-2">We respond within 24 hours</p>
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">Email</h3>
-            <p className="text-gray-600">support@workzone.lk</p>
-            <p className="text-sm text-gray-500 mt-2">We respond within 24 hours</p>
+
+            <div className="bg-white rounded-2xl shadow-sm border p-6 text-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Briefcase className="text-blue-600" size={24} />
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2">Office</h3>
+              <p className="text-gray-600">Colombo, Sri Lanka</p>
+              <p className="text-sm text-gray-500 mt-2">Central island location</p>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-sm border p-6 text-center">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Bell className="text-green-600" size={24} />
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2">Phone</h3>
+              <p className="text-gray-600">+94 (0) 701 234 567</p>
+              <p className="text-sm text-gray-500 mt-2">Monday to Friday, 9 AM to 6 PM</p>
+            </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm border p-6 text-center">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Briefcase className="text-blue-600" size={24} />
-            </div>
-            <h3 className="font-bold text-gray-900 mb-2">Office</h3>
-            <p className="text-gray-600">Colombo, Sri Lanka</p>
-            <p className="text-sm text-gray-500 mt-2">Central island location</p>
-          </div>
+          <div className="bg-white rounded-2xl shadow-sm border p-8 md:p-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
 
-          <div className="bg-white rounded-2xl shadow-sm border p-6 text-center">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Bell className="text-green-600" size={24} />
-            </div>
-            <h3 className="font-bold text-gray-900 mb-2">Phone</h3>
-            <p className="text-gray-600">+94 (0) 701 234 567</p>
-            <p className="text-sm text-gray-500 mt-2">Monday to Friday, 9 AM to 6 PM</p>
-          </div>
-        </div>
+            {submitted && (
+              <div className="bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-lg mb-6 flex items-center gap-2">
+                <CheckCircle size={20} />
+                <span>Thank you! We'll get back to you soon.</span>
+              </div>
+            )}
 
-        <div className="bg-white rounded-2xl shadow-sm border p-8 md:p-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-          
-          {submitted && (
-            <div className="bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-lg mb-6 flex items-center gap-2">
-              <CheckCircle size={20} />
-              <span>Thank you! We'll get back to you soon.</span>
-            </div>
-          )}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-bold text-gray-900 mb-2">Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-gray-900 mb-2">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600"
+                    placeholder="your@email.com"
+                  />
+                </div>
+              </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-bold text-gray-900 mb-2">Name</label>
+                <label className="block text-sm font-bold text-gray-900 mb-2">Subject</label>
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="subject"
+                  value={formData.subject}
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600"
-                  placeholder="Your name"
+                  placeholder="How can we help?"
                 />
               </div>
+
               <div>
-                <label className="block text-sm font-bold text-gray-900 mb-2">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
+                <label className="block text-sm font-bold text-gray-900 mb-2">Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600"
-                  placeholder="your@email.com"
+                  rows="6"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600 resize-none"
+                  placeholder="Tell us what's on your mind..."
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-sm font-bold text-gray-900 mb-2">Subject</label>
-              <input
-                type="text"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600"
-                placeholder="How can we help?"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-bold text-gray-900 mb-2">Message</label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows="6"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600 resize-none"
-                placeholder="Tell us what's on your mind..."
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition-all"
-            >
-              Send Message
-            </button>
-          </form>
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition-all"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
@@ -2016,98 +2015,97 @@ const FeedbackPage = () => {
     <>
       <Navbar />
       <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Your Feedback Matters</h1>
-        <p className="text-center text-gray-600 mb-12">Help us improve WorkZone by sharing your thoughts and experiences</p>
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Your Feedback Matters</h1>
+          <p className="text-center text-gray-600 mb-12">Help us improve WorkZone by sharing your thoughts and experiences</p>
 
-        <div className="bg-white rounded-2xl shadow-sm border p-8 md:p-12">
-          {submitted && (
-            <div className="bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-lg mb-6 flex items-center gap-2">
-              <CheckCircle size={20} />
-              <span>Thank you for your valuable feedback!</span>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-bold text-gray-900 mb-4">How would you rate your experience?</label>
-              <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map(num => (
-                  <button
-                    key={num}
-                    type="button"
-                    onClick={() => setFeedbackData(prev => ({ ...prev, rating: num }))}
-                    className={`w-12 h-12 rounded-lg font-bold text-lg transition-all ${
-                      feedbackData.rating === num
-                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
-                  >
-                    {num}
-                  </button>
-                ))}
+          <div className="bg-white rounded-2xl shadow-sm border p-8 md:p-12">
+            {submitted && (
+              <div className="bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-lg mb-6 flex items-center gap-2">
+                <CheckCircle size={20} />
+                <span>Thank you for your valuable feedback!</span>
               </div>
-              <p className="text-xs text-gray-500 mt-2">1 = Poor, 5 = Excellent</p>
-            </div>
+            )}
 
-            <div>
-              <label className="block text-sm font-bold text-gray-900 mb-2">Category</label>
-              <select
-                name="category"
-                value={feedbackData.category}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600"
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-bold text-gray-900 mb-4">How would you rate your experience?</label>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map(num => (
+                    <button
+                      key={num}
+                      type="button"
+                      onClick={() => setFeedbackData(prev => ({ ...prev, rating: num }))}
+                      className={`w-12 h-12 rounded-lg font-bold text-lg transition-all ${feedbackData.rating === num
+                          ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        }`}
+                    >
+                      {num}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs text-gray-500 mt-2">1 = Poor, 5 = Excellent</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-gray-900 mb-2">Category</label>
+                <select
+                  name="category"
+                  value={feedbackData.category}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600"
+                >
+                  <option value="general">General Feedback</option>
+                  <option value="features">Feature Request</option>
+                  <option value="bug">Bug Report</option>
+                  <option value="payment">Payment & Wallet</option>
+                  <option value="support">Customer Support</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-gray-900 mb-2">Your Feedback</label>
+                <textarea
+                  name="feedback"
+                  value={feedbackData.feedback}
+                  onChange={handleChange}
+                  required
+                  rows="6"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600 resize-none"
+                  placeholder="Tell us what you think... What could we improve?"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition-all"
               >
-                <option value="general">General Feedback</option>
-                <option value="features">Feature Request</option>
-                <option value="bug">Bug Report</option>
-                <option value="payment">Payment & Wallet</option>
-                <option value="support">Customer Support</option>
-                <option value="other">Other</option>
-              </select>
+                Submit Feedback
+              </button>
+            </form>
+
+            <div className="mt-12 pt-8 border-t">
+              <h3 className="font-bold text-gray-900 mb-4">Why Your Feedback Matters</h3>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start gap-3">
+                  <CheckCircle size={20} className="text-green-600 mt-0.5 flex-shrink-0" />
+                  <span>We use your feedback to make continuous improvements</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle size={20} className="text-green-600 mt-0.5 flex-shrink-0" />
+                  <span>Your voice helps shape the future of WorkZone</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle size={20} className="text-green-600 mt-0.5 flex-shrink-0" />
+                  <span>We respond to feature requests and bug reports promptly</span>
+                </li>
+              </ul>
             </div>
-
-            <div>
-              <label className="block text-sm font-bold text-gray-900 mb-2">Your Feedback</label>
-              <textarea
-                name="feedback"
-                value={feedbackData.feedback}
-                onChange={handleChange}
-                required
-                rows="6"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-600 resize-none"
-                placeholder="Tell us what you think... What could we improve?"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition-all"
-            >
-              Submit Feedback
-            </button>
-          </form>
-
-          <div className="mt-12 pt-8 border-t">
-            <h3 className="font-bold text-gray-900 mb-4">Why Your Feedback Matters</h3>
-            <ul className="space-y-3 text-gray-700">
-              <li className="flex items-start gap-3">
-                <CheckCircle size={20} className="text-green-600 mt-0.5 flex-shrink-0" />
-                <span>We use your feedback to make continuous improvements</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle size={20} className="text-green-600 mt-0.5 flex-shrink-0" />
-                <span>Your voice helps shape the future of WorkZone</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle size={20} className="text-green-600 mt-0.5 flex-shrink-0" />
-                <span>We respond to feature requests and bug reports promptly</span>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
@@ -2155,45 +2153,45 @@ const TermsAndPolicies = () => {
     <>
       <Navbar />
       <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Terms & Policies</h1>
-        <p className="text-center text-gray-600 mb-12">Last updated: January 2026 | Version 1.0</p>
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 text-center">Terms & Policies</h1>
+          <p className="text-center text-gray-600 mb-12">Last updated: January 2026 | Version 1.0</p>
 
-        <div className="space-y-4">
-          {sections.map((section, idx) => (
-            <div key={idx} className="bg-white rounded-2xl shadow-sm border overflow-hidden">
-              <button
-                onClick={() => setExpandedSection(expandedSection === idx ? null : idx)}
-                className="w-full px-8 py-6 flex justify-between items-center hover:bg-gray-50 transition-colors"
-              >
-                <h3 className="font-bold text-gray-900 text-lg text-left">{section.title}</h3>
-                <ChevronRight 
-                  size={24} 
-                  className={`text-purple-600 transition-transform ${expandedSection === idx ? 'rotate-90' : ''}`}
-                />
-              </button>
+          <div className="space-y-4">
+            {sections.map((section, idx) => (
+              <div key={idx} className="bg-white rounded-2xl shadow-sm border overflow-hidden">
+                <button
+                  onClick={() => setExpandedSection(expandedSection === idx ? null : idx)}
+                  className="w-full px-8 py-6 flex justify-between items-center hover:bg-gray-50 transition-colors"
+                >
+                  <h3 className="font-bold text-gray-900 text-lg text-left">{section.title}</h3>
+                  <ChevronRight
+                    size={24}
+                    className={`text-purple-600 transition-transform ${expandedSection === idx ? 'rotate-90' : ''}`}
+                  />
+                </button>
 
-              {expandedSection === idx && (
-                <div className="px-8 py-6 border-t bg-gray-50">
-                  <p className="text-gray-700 leading-relaxed">{section.content}</p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+                {expandedSection === idx && (
+                  <div className="px-8 py-6 border-t bg-gray-50">
+                    <p className="text-gray-700 leading-relaxed">{section.content}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
 
-        <div className="mt-12 bg-white rounded-2xl shadow-sm border p-8">
-          <h2 className="font-bold text-gray-900 mb-4">Questions About Our Policies?</h2>
-          <p className="text-gray-600 mb-6">If you have any questions or concerns about our terms and policies, please don't hesitate to contact us.</p>
-          <Link
-            to="/contact"
-            className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg transition-all"
-          >
-            Contact Support
-          </Link>
+          <div className="mt-12 bg-white rounded-2xl shadow-sm border p-8">
+            <h2 className="font-bold text-gray-900 mb-4">Questions About Our Policies?</h2>
+            <p className="text-gray-600 mb-6">If you have any questions or concerns about our terms and policies, please don't hesitate to contact us.</p>
+            <Link
+              to="/contact"
+              className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg transition-all"
+            >
+              Contact Support
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
@@ -2389,9 +2387,8 @@ const AdminPanel = () => {
                       <td className="px-8 py-4">{app.userName}</td>
                       <td className="px-8 py-4">{app.company}</td>
                       <td className="px-8 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                          app.status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
-                        }`}>
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${app.status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                          }`}>
                           {app.status}
                         </span>
                       </td>
