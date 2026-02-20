@@ -8,6 +8,11 @@ const PORT = process.env.PORT || 5000;
 
 // Import routes
 const authRoutes = require('./routes/auth');
+const jobRoutes  = require('./routes/jobs');
+
+// Seed helper
+const Job      = require('./models/Job');
+const SEED_JOBS = require('./seed/jobs');
 
 // CORS Configuration for Vercel frontend
 const corsOptions = {
@@ -51,6 +56,7 @@ app.get('/api/health', (req, res) => {
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/jobs', jobRoutes);
 
 // 404 Handler
 app.use((req, res) => {
@@ -73,8 +79,18 @@ app.use((err, req, res, next) => {
 
 // Database Connection with improved error handling
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
+  .then(async () => {
     console.log('✅ MongoDB Connected Successfully!');
+
+    // Auto-seed jobs collection if it is empty
+    const jobCount = await Job.countDocuments();
+    if (jobCount === 0) {
+      await Job.insertMany(SEED_JOBS);
+      console.log(`🌱 Seeded ${SEED_JOBS.length} jobs into MongoDB`);
+    } else {
+      console.log(`📦 Jobs collection already has ${jobCount} documents — skipping seed`);
+    }
+
     // Server Start (Listen) - Required for Render
     app.listen(PORT, () => {
       console.log(`\n🚀 Server running on port ${PORT}`);

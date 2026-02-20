@@ -154,7 +154,47 @@ const JobCard = ({ job }) => (
 
 const Home = () => {
   const { jobs } = useAppContext();
-  
+  const [titleQuery, setTitleQuery] = useState('');
+  const [locationQuery, setLocationQuery] = useState('');
+  const [searchResults, setSearchResults] = useState(null); // null = show all
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState('');
+
+  const handleSearch = async () => {
+    if (!titleQuery.trim() && !locationQuery.trim()) {
+      setSearchResults(null);
+      return;
+    }
+    try {
+      setIsSearching(true);
+      setSearchError('');
+      const params = new URLSearchParams();
+      if (titleQuery.trim())    params.append('q',        titleQuery.trim());
+      if (locationQuery.trim()) params.append('location', locationQuery.trim());
+      const res  = await fetch(`http://localhost:5001/api/jobs?${params}`);
+      const data = await res.json();
+      if (data.success) {
+        setSearchResults(data.jobs);
+      } else {
+        setSearchError('Search failed. Please try again.');
+      }
+    } catch {
+      setSearchError('Could not reach server.');
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const clearSearch = () => {
+    setSearchResults(null);
+    setTitleQuery('');
+    setLocationQuery('');
+    setSearchError('');
+  };
+
+  const displayJobs = searchResults !== null ? searchResults : jobs;
+  const isFiltered  = searchResults !== null;
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       <Navbar />
@@ -181,33 +221,94 @@ const Home = () => {
         <div className="bg-white p-3 rounded-2xl shadow-2xl max-w-4xl mx-auto flex flex-col md:flex-row gap-2 border border-gray-100">
           <div className="flex-1 flex items-center bg-gray-50 rounded-xl px-4 py-3 border border-transparent focus-within:border-purple-300 focus-within:bg-white transition-all">
             <Search className="text-gray-400 mr-3" size={20} />
-            <input type="text" placeholder="Job title or keywords" className="bg-transparent w-full outline-none text-gray-700 placeholder-gray-400 font-medium" />
+            <input
+              type="text"
+              placeholder="Job title or keywords"
+              className="bg-transparent w-full outline-none text-gray-700 placeholder-gray-400 font-medium"
+              value={titleQuery}
+              onChange={e => setTitleQuery(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleSearch()}
+            />
           </div>
           <div className="flex-1 flex items-center bg-gray-50 rounded-xl px-4 py-3 border border-transparent focus-within:border-purple-300 focus-within:bg-white transition-all">
             <MapPin className="text-gray-400 mr-3" size={20} />
-            <input type="text" placeholder="City or Zip code" className="bg-transparent w-full outline-none text-gray-700 placeholder-gray-400 font-medium" />
+            <input
+              type="text"
+              placeholder="City or location"
+              className="bg-transparent w-full outline-none text-gray-700 placeholder-gray-400 font-medium"
+              value={locationQuery}
+              onChange={e => setLocationQuery(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleSearch()}
+            />
           </div>
-          <button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg shadow-lg shadow-purple-200 transition-all">
-            Search
+          <button
+            onClick={handleSearch}
+            disabled={isSearching}
+            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg shadow-lg shadow-purple-200 transition-all disabled:opacity-70"
+          >
+            {isSearching ? 'Searching...' : 'Search'}
           </button>
         </div>
+        {searchError && (
+          <p className="text-center text-red-500 text-sm mt-2">{searchError}</p>
+        )}
       </div>
 
       {/* Recent Jobs */}
       <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="flex justify-between items-end mb-10">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Latest Opportunities</h2>
-            <p className="text-gray-500 mt-1">Fresh jobs posted just for you</p>
+            {isFiltered ? (
+              <>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {displayJobs.length > 0
+                    ? `${displayJobs.length} result${displayJobs.length !== 1 ? 's' : ''} found`
+                    : 'No jobs found'}
+                </h2>
+                <p className="text-gray-500 mt-1">
+                  {titleQuery && <span>Keyword: <strong>{titleQuery}</strong></span>}
+                  {titleQuery && locationQuery && ' · '}
+                  {locationQuery && <span>Location: <strong>{locationQuery}</strong></span>}
+                </p>
+              </>
+            ) : (
+              <>
+                <h2 className="text-2xl font-bold text-gray-900">Latest Opportunities</h2>
+                <p className="text-gray-500 mt-1">Fresh jobs posted just for you</p>
+              </>
+            )}
           </div>
-          <Link to="/jobs" className="text-purple-600 font-semibold flex items-center hover:underline">View All <ChevronRight size={16}/></Link>
+          {isFiltered ? (
+            <button
+              onClick={clearSearch}
+              className="text-purple-600 font-semibold flex items-center hover:underline"
+            >
+              ✕ Clear Search
+            </button>
+          ) : (
+            <Link to="/jobs" className="text-purple-600 font-semibold flex items-center hover:underline">View All <ChevronRight size={16}/></Link>
+          )}
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {jobs.map(job => <JobCard key={job.id} job={job} />)}
-        </div>
+
+        {isFiltered && displayJobs.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-5xl mb-4">🔍</p>
+            <h3 className="text-xl font-bold text-gray-700 mb-2">No jobs match your search</h3>
+            <p className="text-gray-500 mb-6">Try different keywords or a broader location</p>
+            <button
+              onClick={clearSearch}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-xl font-bold"
+            >
+              Browse All Jobs
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {displayJobs.map(job => <JobCard key={job.id} job={job} />)}
+          </div>
+        )}
       </div>
-      
+
       {/* Professional Black Footer */}
       <footer className="bg-black text-gray-300 pt-16 pb-8 mt-20">
         <div className="max-w-7xl mx-auto px-6">
@@ -464,7 +565,7 @@ const JobDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { jobs, applications, addApplication } = useAppContext();
-  const job = jobs.find(j => j.id === parseInt(id)) || jobs[0];
+  const job = jobs.find(j => String(j.id) === String(id)) || jobs[0];
   
   const userApplication = applications.find(app => app.jobId === job.id);
   const hasApplied = !!userApplication;
@@ -982,6 +1083,20 @@ function AppProvider({ children }) {
   const [currentUserId, setCurrentUserId] = useState('');
   
   const [jobs, setJobs] = useState(INITIAL_JOBS);
+
+  // Load jobs from MongoDB backend on mount
+  React.useEffect(() => {
+    fetch('http://localhost:5001/api/jobs')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.jobs && data.jobs.length > 0) {
+          setJobs(data.jobs);
+        }
+      })
+      .catch(() => {
+        // backend unavailable — keep INITIAL_JOBS as fallback
+      });
+  }, []);
   const [applications, setApplications] = useState([]);
   const [pendingPayments, setPendingPayments] = useState([]);
   const [completedTransactions, setCompletedTransactions] = useState([]);
@@ -1097,8 +1212,7 @@ const ParticipatePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { jobs } = useAppContext();
-  const job = jobs.find(j => j.id === parseInt(id));
-  const [done, setDone] = useState(false);
+  const job = jobs.find(j => String(j.id) === String(id));
 
   const handleDone = () => {
     setDone(true);
@@ -1166,7 +1280,7 @@ const CardDetailsPage = () => {
   });
   const [showPopup, setShowPopup] = useState(false);
 
-  const job = jobs.find(j => j.id === parseInt(id));
+  const job = jobs.find(j => String(j.id) === String(id));
 
   const handleChange = (e) => {
     setCardDetails({ ...cardDetails, [e.target.name]: e.target.value });
@@ -1180,7 +1294,7 @@ const CardDetailsPage = () => {
 
     const newPayment = {
       id: Date.now(),
-      jobId: parseInt(id),
+      jobId: id,
       jobTitle: job.title,
       userName: 'Current User',
       userEmail: 'user@example.com',
