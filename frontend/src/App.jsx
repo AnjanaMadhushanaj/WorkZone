@@ -614,33 +614,103 @@ const JobDetails = () => {
 // --- AUTH PAGES ---
 
 const Signup = () => {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
-  const [idFront, setIdFront] = useState(null);
-  const [idBack, setIdBack] = useState(null);
-  const [status, setStatus] = useState('idle'); // idle | success | error
+  const navigate = useNavigate();
+  const { login } = useAppContext();
+  const [role, setRole] = useState('student');
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    identityCardNumber: '',
+    company: '',
+    companyRegistration: '',
+  });
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setFieldErrors({ ...fieldErrors, [e.target.name]: '' });
   };
 
-  const handleFile = (setter) => (e) => {
-    setter(e.target.files?.[0] || null);
+  const handleRoleChange = (e) => {
+    setRole(e.target.value);
+    setFieldErrors({});
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('idle');
     setError('');
+    setFieldErrors({});
 
-    if (!form.name || !form.email || !form.password || !idFront || !idBack) {
-      setError('Please complete all fields and upload both ID card photos.');
+    // Basic client-side validation
+    const errs = {};
+    if (!form.name.trim()) errs.name = 'Full name is required';
+    if (!form.email) errs.email = 'Email is required';
+    if (!form.password || form.password.length < 6) errs.password = 'Password must be at least 6 characters';
+    if (!form.phone) errs.phone = 'Phone number is required';
+    if (role === 'student' && !form.identityCardNumber) errs.identityCardNumber = 'Identity card number is required';
+    if (role === 'company') {
+      if (!form.company) errs.company = 'Company name is required';
+      if (!form.companyRegistration) errs.companyRegistration = 'Registration number is required';
+    }
+
+    if (Object.keys(errs).length > 0) {
+      setFieldErrors(errs);
       setStatus('error');
       return;
     }
 
-    // Simulate signup success
-    setStatus('success');
+    try {
+      setStatus('loading');
+      const payload = {
+        name: form.name.trim(),
+        email: form.email,
+        password: form.password,
+        phone: form.phone,
+        role,
+        ...(role === 'student' && { identityCardNumber: form.identityCardNumber }),
+        ...(role === 'company' && {
+          company: form.company,
+          companyRegistration: form.companyRegistration,
+        }),
+      };
+
+      const res = await fetch('http://localhost:5001/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        if (data.errors) {
+          setFieldErrors(data.errors);
+        }
+        setError(data.message || 'Registration failed. Please try again.');
+        setStatus('error');
+        return;
+      }
+
+      // Save JWT token & user to localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('workzone_user', JSON.stringify(data.user));
+
+      // Update app state
+      login(data.user.name, data.user.role === 'company', data.user.id);
+      setStatus('success');
+
+      setTimeout(() => {
+        navigate(data.user.role === 'company' ? '/company-dashboard' : '/user-dashboard');
+      }, 800);
+    } catch (err) {
+      setError('Could not connect to server. Make sure the backend is running.');
+      setStatus('error');
+    }
   };
 
   return (
@@ -654,75 +724,131 @@ const Signup = () => {
           </div>
         </div>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        {/* Role Selector */}
+        <div className="flex gap-4 mb-6">
+          {['student', 'company'].map((r) => (
+            <label
+              key={r}
+              className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                role === r ? 'border-purple-500 bg-purple-50 text-purple-700 font-semibold' : 'border-gray-200 text-gray-500 hover:border-purple-300'
+              }`}
+            >
+              <input type="radio" name="role" value={r} checked={role === r} onChange={handleRoleChange} className="hidden" />
+              {r === 'student' ? '🎓 Student' : '🏢 Company'}
+            </label>
+          ))}
+        </div>
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
               <input
                 name="name"
                 value={form.name}
                 onChange={handleChange}
                 type="text"
-                className="w-full rounded-xl border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-purple-200"
+                className={`w-full rounded-xl border p-3 focus:outline-none focus:ring-2 focus:ring-purple-200 ${fieldErrors.name ? 'border-red-400' : 'border-gray-200'}`}
                 placeholder="Jane Doe"
               />
+              {fieldErrors.name && <p className="text-xs text-red-500 mt-1">{fieldErrors.name}</p>}
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
               <input
                 name="email"
                 value={form.email}
                 onChange={handleChange}
                 type="email"
-                className="w-full rounded-xl border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-purple-200"
+                className={`w-full rounded-xl border p-3 focus:outline-none focus:ring-2 focus:ring-purple-200 ${fieldErrors.email ? 'border-red-400' : 'border-gray-200'}`}
                 placeholder="you@example.com"
               />
+              {fieldErrors.email && <p className="text-xs text-red-500 mt-1">{fieldErrors.email}</p>}
             </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-            <input
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              type="password"
-              className="w-full rounded-xl border border-gray-200 p-3 focus:outline-none focus:ring-2 focus:ring-purple-200"
-              placeholder="••••••••"
-            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">ID Card - Front</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Password *</label>
               <input
-                type="file"
-                accept="image/*"
-                onChange={handleFile(setIdFront)}
-                className="w-full text-sm"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                type="password"
+                className={`w-full rounded-xl border p-3 focus:outline-none focus:ring-2 focus:ring-purple-200 ${fieldErrors.password ? 'border-red-400' : 'border-gray-200'}`}
+                placeholder="Min. 6 characters"
               />
-              {idFront && <p className="text-xs text-gray-500 mt-1">Selected: {idFront.name}</p>}
+              {fieldErrors.password && <p className="text-xs text-red-500 mt-1">{fieldErrors.password}</p>}
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">ID Card - Back</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
               <input
-                type="file"
-                accept="image/*"
-                onChange={handleFile(setIdBack)}
-                className="w-full text-sm"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                type="tel"
+                className={`w-full rounded-xl border p-3 focus:outline-none focus:ring-2 focus:ring-purple-200 ${fieldErrors.phone ? 'border-red-400' : 'border-gray-200'}`}
+                placeholder="+94 77 000 0000"
               />
-              {idBack && <p className="text-xs text-gray-500 mt-1">Selected: {idBack.name}</p>}
+              {fieldErrors.phone && <p className="text-xs text-red-500 mt-1">{fieldErrors.phone}</p>}
             </div>
           </div>
 
+          {/* Student-specific field */}
+          {role === 'student' && (
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Identity Card Number *</label>
+              <input
+                name="identityCardNumber"
+                value={form.identityCardNumber}
+                onChange={handleChange}
+                type="text"
+                className={`w-full rounded-xl border p-3 focus:outline-none focus:ring-2 focus:ring-purple-200 ${fieldErrors.identityCardNumber ? 'border-red-400' : 'border-gray-200'}`}
+                placeholder="e.g. 200012345678"
+              />
+              {fieldErrors.identityCardNumber && <p className="text-xs text-red-500 mt-1">{fieldErrors.identityCardNumber}</p>}
+            </div>
+          )}
+
+          {/* Company-specific fields */}
+          {role === 'company' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name *</label>
+                <input
+                  name="company"
+                  value={form.company}
+                  onChange={handleChange}
+                  type="text"
+                  className={`w-full rounded-xl border p-3 focus:outline-none focus:ring-2 focus:ring-purple-200 ${fieldErrors.company ? 'border-red-400' : 'border-gray-200'}`}
+                  placeholder="My Company Ltd."
+                />
+                {fieldErrors.company && <p className="text-xs text-red-500 mt-1">{fieldErrors.company}</p>}
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Registration Number *</label>
+                <input
+                  name="companyRegistration"
+                  value={form.companyRegistration}
+                  onChange={handleChange}
+                  type="text"
+                  className={`w-full rounded-xl border p-3 focus:outline-none focus:ring-2 focus:ring-purple-200 ${fieldErrors.companyRegistration ? 'border-red-400' : 'border-gray-200'}`}
+                  placeholder="e.g. PV 12345"
+                />
+                {fieldErrors.companyRegistration && <p className="text-xs text-red-500 mt-1">{fieldErrors.companyRegistration}</p>}
+              </div>
+            </div>
+          )}
+
           {error && <div className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg p-3">{error}</div>}
-          {status === 'success' && <div className="text-sm text-green-600 bg-green-50 border border-green-100 rounded-lg p-3">Signed up! You can now log in.</div>}
+          {status === 'success' && <div className="text-sm text-green-600 bg-green-50 border border-green-100 rounded-lg p-3">✅ Account created! Redirecting...</div>}
 
           <button
             type="submit"
+            disabled={status === 'loading'}
             className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-purple-200 hover:shadow-xl transition-all disabled:opacity-70"
           >
-            Create Account
+            {status === 'loading' ? 'Creating account...' : 'Create Account'}
           </button>
         </form>
 
@@ -739,31 +865,56 @@ const LoginPage = () => {
   const { login } = useAppContext();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
-  const [status, setStatus] = useState('idle');
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setStatus('idle');
 
     if (!form.email || !form.password) {
-      setError('Please enter email and password.');
+      setError('Please enter your email and password.');
       setStatus('error');
       return;
     }
 
-    // Check if company credentials
-    if (form.email === COMPANY_CREDENTIALS.email && form.password === COMPANY_CREDENTIALS.password) {
-      login(COMPANY_CREDENTIALS.companyName, true, COMPANY_CREDENTIALS.companyId);
+    try {
+      setStatus('loading');
+      const res = await fetch('http://localhost:5001/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: form.email, password: form.password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        // Invalid credentials → redirect to signup
+        if (res.status === 401) {
+          navigate('/signup');
+          return;
+        }
+        setError(data.message || 'Login failed. Please try again.');
+        setStatus('error');
+        return;
+      }
+
+      // Save JWT token & user data to localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('workzone_user', JSON.stringify(data.user));
+
+      // Update app state
+      login(data.user.name, data.user.role === 'company', data.user.id);
       setStatus('success');
-      setTimeout(() => navigate('/company-dashboard'), 1000);
-    } else {
-      // Regular user login (simplified for demo)
-      login(form.email, false, 'user1');
-      setStatus('success');
-      setTimeout(() => navigate('/user-dashboard'), 1000);
+
+      setTimeout(() => {
+        navigate(data.user.role === 'company' ? '/company-dashboard' : '/user-dashboard');
+      }, 800);
+    } catch (err) {
+      setError('Could not connect to server. Make sure the backend is running.');
+      setStatus('error');
     }
   };
 
@@ -803,13 +954,14 @@ const LoginPage = () => {
           </div>
 
           {error && <div className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg p-3">{error}</div>}
-          {status === 'success' && <div className="text-sm text-green-600 bg-green-50 border border-green-100 rounded-lg p-3">Logged in! (demo state)</div>}
+          {status === 'success' && <div className="text-sm text-green-600 bg-green-50 border border-green-100 rounded-lg p-3">✅ Logged in! Redirecting...</div>}
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-purple-200 hover:shadow-xl transition-all"
+            disabled={status === 'loading'}
+            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-purple-200 hover:shadow-xl transition-all disabled:opacity-70"
           >
-            Log In
+            {status === 'loading' ? 'Logging in...' : 'Log In'}
           </button>
         </form>
 
@@ -837,6 +989,24 @@ function AppProvider({ children }) {
   const [companyWallet, setCompanyWallet] = useState(10000);
   const [pendingMoney, setPendingMoney] = useState(0);
 
+  // Restore session from localStorage on mount
+  React.useEffect(() => {
+    const savedUser = localStorage.getItem('workzone_user');
+    const savedToken = localStorage.getItem('token');
+    if (savedUser && savedToken) {
+      try {
+        const user = JSON.parse(savedUser);
+        setIsLoggedIn(true);
+        setIsCompany(user.role === 'company');
+        setCurrentUser(user.name || user.email);
+        setCurrentUserId(user.id || user._id || '');
+      } catch (e) {
+        localStorage.removeItem('workzone_user');
+        localStorage.removeItem('token');
+      }
+    }
+  }, []);
+
   const login = (userName, isCompanyUser, userId) => {
     setIsLoggedIn(true);
     setIsCompany(isCompanyUser);
@@ -849,6 +1019,8 @@ function AppProvider({ children }) {
     setIsCompany(false);
     setCurrentUser('');
     setCurrentUserId('');
+    localStorage.removeItem('token');
+    localStorage.removeItem('workzone_user');
   };
 
   const postJob = (jobData) => {

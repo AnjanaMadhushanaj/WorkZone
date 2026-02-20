@@ -75,17 +75,11 @@ const userSchema = new mongoose.Schema(
 );
 
 // Hash password before saving
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function () {
   // Only hash if password is modified
-  if (!this.isModified('password')) return next();
-
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (error) {
-    next(error);
-  }
+  if (!this.isModified('password')) return;
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
 // Method to compare password during login
@@ -101,7 +95,7 @@ userSchema.methods.toJSON = function () {
 };
 
 // Prevent duplicate email on update
-userSchema.pre('findByIdAndUpdate', async function (next) {
+userSchema.pre('findByIdAndUpdate', async function () {
   if (this.getUpdate().email) {
     const existingUser = await mongoose.model('User').findOne({
       email: this.getUpdate().email,
@@ -111,7 +105,6 @@ userSchema.pre('findByIdAndUpdate', async function (next) {
       throw new Error('Email is already in use');
     }
   }
-  next();
 });
 
 module.exports = mongoose.model('User', userSchema);
