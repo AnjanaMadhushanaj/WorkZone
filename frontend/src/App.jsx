@@ -92,6 +92,8 @@ const Navbar = () => {
     navigate('/');
   };
 
+  const navLinkClass = "relative py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:bg-purple-600 hover:text-purple-600 transition-colors";
+
   return (
     <nav className="bg-white border-b border-gray-100 px-6 py-4 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -99,14 +101,14 @@ const Navbar = () => {
           <img src="/logo.jpeg" alt="WorkZone" className="h-24" />
         </div>
 
-        <div className="hidden md:flex gap-8 text-sm font-semibold text-gray-500">
-          <Link to="/" className="hover:text-purple-600 transition-colors">Home</Link>
-          <Link to="/about" className="hover:text-purple-600 transition-colors">About Us</Link>
-          <Link to="/contact" className="hover:text-purple-600 transition-colors">Contact Us</Link>
-          <Link to="/feedback" className="hover:text-purple-600 transition-colors">Feedback</Link>
-          <Link to="/terms" className="hover:text-purple-600 transition-colors">Terms & Policies</Link>
-          {isCompany && <Link to="/company-dashboard" className="hover:text-purple-600 transition-colors">Company Dashboard</Link>}
-          {isLoggedIn && !isCompany && <Link to="/user-dashboard" className="hover:text-purple-600 transition-colors">My Dashboard</Link>}
+        <div className="hidden md:flex gap-8 text-sm font-semibold text-gray-500 items-center">
+          <Link to="/" className={navLinkClass}>Home</Link>
+          <Link to="/about" className={navLinkClass}>About Us</Link>
+          <Link to="/contact" className={navLinkClass}>Contact Us</Link>
+          <Link to="/feedback" className={navLinkClass}>Feedback</Link>
+          <Link to="/terms" className={navLinkClass}>Terms & Policies</Link>
+          {isCompany && <Link to="/company-dashboard" className={navLinkClass}>Company Dashboard</Link>}
+          {isLoggedIn && !isCompany && <Link to="/user-dashboard" className={navLinkClass}>My Dashboard</Link>}
         </div>
 
         <div className="flex items-center gap-4">
