@@ -146,8 +146,8 @@ Our project uses **GitHub Actions** for automation:
 
 ---
 ###  Build Status
-![CI Pipeline](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/ci-cd.yml/badge.svg)
-![CD Pipeline](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/main.yml/badge.svg)
+[![Build and Deploy to Vercel](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/cd-frontend.yml/badge.svg?branch=main)](https://github.com/AnjanaMadhushanaj/WorkZone/actions)
+[![Deploy Backend to Render](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/cd-backend.yml/badge.svg?branch=main)](https://github.com/AnjanaMadhushanaj/WorkZone/actions)
 
 <div align="center">
   <p>Built for Systems Administration & Maintenance Assignment (2026)</p>
