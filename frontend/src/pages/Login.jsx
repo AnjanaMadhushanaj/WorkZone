@@ -4,6 +4,10 @@ import { GoogleLogin } from '@react-oauth/google';
 import { authService } from '../services/authService';
 import '../styles/Login.css';
 
+/**
+ * Login Component - Google OAuth Authentication
+ * Handles user authentication via Google OAuth 2.0
+ */
 export const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
