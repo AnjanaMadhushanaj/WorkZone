@@ -152,3 +152,27 @@ Our project uses **GitHub Actions** for automation:
 <div align="center">
   <p>Built for Systems Administration & Maintenance Assignment (2026)</p>
 </div>
+
+## 🐳 Docker Containerisation
+
+### Prerequisites
+* **Docker** (v20.10 or later)
+* **Docker Compose** (v2.0 or later; included with Docker Desktop)
+
+### Project Structure (Docker files)
+
+| File | Purpose |
+| :--- | :--- |
+| `frontend/Dockerfile` | Multi-stage build definition for the React frontend (served via Nginx) |
+| `backend/Dockerfile` | Build definition for the Node.js Express API |
+| `docker-compose.yml` | Service orchestration for the full MERN application stack |
+| `.dockerignore` | Excludes unnecessary files (like `node_modules`) from the Docker build context |
+
+### Building and Running
+
+Start the entire application stack in detached (background) mode with a single command:
+```bash
+docker compose up -d --build
+Once running, the applications will be available at:Frontend: http://localhost:8080Backend API: http://localhost:5000Stop the application (preserves data):Bashdocker compose stop
+Stop and remove all containers, networks, and data (including the database volume):Bashdocker compose down -v
+Environment VariablesThese variables are explicitly managed within the docker-compose.yml file for secure configuration:VariableDefault ValueDescriptionPORT5000Internal port the Express server listens onMONGO_URImongodb://mongodb:27017/workzoneConnection string for the isolated MongoDB containerVITE_API_URLhttp://localhost:5000The backend API URL injected into the frontend during the build phaseDocker Architecture HighlightsBase Images: node:20-alpine and nginx:alpine — extremely lightweight Alpine Linux images to minimize storage footprint and reduce the attack surface.Multi-stage Builds: Separates build-time dependencies from the runtime environment in the frontend, significantly reducing the final image size (down to ~93.7 MB).Non-root User: The backend application runs as an unprivileged user (node), adhering to the security principle of least privilege.Custom Networking: All three containers (Frontend, Backend, Database) communicate securely over an isolated, custom internal bridge network (network).Named Volume (mongodb_data): Persists the MongoDB database records, ensuring data is not lost across container restarts
