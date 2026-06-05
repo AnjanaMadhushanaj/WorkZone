@@ -170,9 +170,40 @@ Our project uses **GitHub Actions** for automation:
 
 ### Building and Running
 
-Start the entire application stack in detached (background) mode with a single command:
+**Build and start** the entire application stack in detached (background) mode:
 ```bash
 docker compose up -d --build
-Once running, the applications will be available at:Frontend: http://localhost:8080Backend API: http://localhost:5000Stop the application (preserves data):Bashdocker compose stop
-Stop and remove all containers, networks, and data (including the database volume):Bashdocker compose down -v
-Environment VariablesThese variables are explicitly managed within the docker-compose.yml file for secure configuration:VariableDefault ValueDescriptionPORT5000Internal port the Express server listens onMONGO_URImongodb://mongodb:27017/workzoneConnection string for the isolated MongoDB containerVITE_API_URLhttp://localhost:5000The backend API URL injected into the frontend during the build phaseDocker Architecture HighlightsBase Images: node:20-alpine and nginx:alpine — extremely lightweight Alpine Linux images to minimize storage footprint and reduce the attack surface.Multi-stage Builds: Separates build-time dependencies from the runtime environment in the frontend, significantly reducing the final image size (down to ~93.7 MB).Non-root User: The backend application runs as an unprivileged user (node), adhering to the security principle of least privilege.Custom Networking: All three containers (Frontend, Backend, Database) communicate securely over an isolated, custom internal bridge network (network).Named Volume (mongodb_data): Persists the MongoDB database records, ensuring data is not lost across container restarts
+```
+
+Once running, the applications will be available at:
+* **Frontend:** http://localhost:8080
+* **Backend API:** http://localhost:5000
+
+**Stop the application** (preserves data):
+```bash
+docker compose stop
+```
+
+**Stop and remove** all containers, networks, and data (including the database volume):
+```bash
+docker compose down -v
+```
+
+### Environment Variables
+
+These variables are explicitly managed within the `docker-compose.yml` file for secure configuration:
+
+| Variable | Default Value | Description |
+| :--- | :--- | :--- |
+| `PORT` | `5000` | Internal port the Express server listens on |
+| `MONGO_URI` | `mongodb://mongodb:27017/workzone` | Connection string for the isolated MongoDB container |
+| `VITE_API_URL` | `http://localhost:5000` | The backend API URL injected into the frontend during the build phase |
+
+### Docker Architecture Highlights
+
+* **Base Images:** `node:20-alpine` and `nginx:alpine` — extremely lightweight Alpine Linux images to minimize storage footprint and reduce the attack surface.
+* **Multi-stage Builds:** Separates build-time dependencies from the runtime environment in the frontend, significantly reducing the final image size (down to ~93.7 MB).
+* **Non-root User:** The backend application runs as an unprivileged user (`node`), adhering to the security principle of least privilege.
+* **Custom Networking:** All three containers (Frontend, Backend, Database) communicate securely over an isolated, custom internal bridge network (`network`).
+* **Named Volume (`mongodb_data`):** Persists the MongoDB database records, ensuring data is not lost across container restarts.
+
