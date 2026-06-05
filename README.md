@@ -1,4 +1,8 @@
-# 🚀 WorkZone
+<div align="center">
+
+# WorkZone
+
+</div>
 
 <div align="center">
 
@@ -101,7 +105,7 @@ We implemented the following branching strategy to ensure code quality:
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 * **Node.js** (v18 or higher)
@@ -145,13 +149,6 @@ Our project uses **GitHub Actions** for automation:
 * **Merge Conflicts:** Encountered conflicts in `package.json` when merging branches, resolved by manual code review.
 
 ---
-###  Build Status
-[![Build and Deploy to Vercel](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/cd-frontend.yml/badge.svg?branch=main)](https://github.com/AnjanaMadhushanaj/WorkZone/actions)
-[![Deploy Backend to Render](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/cd-backend.yml/badge.svg?branch=main)](https://github.com/AnjanaMadhushanaj/WorkZone/actions)
-
-<div align="center">
-  <p>Built for Systems Administration & Maintenance Assignment (2026)</p>
-</div>
 
 ## 🐳 Docker Containerisation
 
@@ -207,3 +204,12 @@ These variables are explicitly managed within the `docker-compose.yml` file for 
 * **Custom Networking:** All three containers (Frontend, Backend, Database) communicate securely over an isolated, custom internal bridge network (`network`).
 * **Named Volume (`mongodb_data`):** Persists the MongoDB database records, ensuring data is not lost across container restarts.
 
+---
+
+###  Build Status
+[![Build and Deploy to Vercel](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/cd-frontend.yml/badge.svg?branch=main)](https://github.com/AnjanaMadhushanaj/WorkZone/actions)
+[![Deploy Backend to Render](https://github.com/AnjanaMadhushanaj/WorkZone/actions/workflows/cd-backend.yml/badge.svg?branch=main)](https://github.com/AnjanaMadhushanaj/WorkZone/actions)
+
+<div align="center">
+  <p>Built for Systems Administration & Maintenance Assignment (2026)</p>
+</div>
