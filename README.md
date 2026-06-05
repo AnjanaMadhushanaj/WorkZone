@@ -160,6 +160,7 @@ Our project uses **GitHub Actions** for automation:
 
 | File | Purpose |
 | :--- | :--- |
+| `Dockerfile` | Root-level build definition for the backend API (standalone use) |
 | `frontend/Dockerfile` | Multi-stage build definition for the React frontend (served via Nginx) |
 | `backend/Dockerfile` | Build definition for the Node.js Express API |
 | `docker-compose.yml` | Service orchestration for the full MERN application stack |
