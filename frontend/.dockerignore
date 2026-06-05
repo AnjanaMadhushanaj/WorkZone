@@ -1,7 +1,11 @@
 node_modules
+npm-debug.log
 dist
 build
 .env
+.git
+.gitignore
+*.md
 .DS_Store
 *.log
 npm-debug.log*
